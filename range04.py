@@ -38,20 +38,25 @@ def distance():
     gpio.cleanup()
     return distance
 
-start=time.time()
+# Array to store distance
 distance_array=[]
+
+# Averaging the distances
 for i in range(10):
     distance_array.append(distance())
     time.sleep(1)
 print("Scan Completed")
+
 # Read the image from file
 image = cv2.imread('capture.jpg')
 image=cv2.flip(image,0)
 image=cv2.flip(image,1)
+
 # Add text to the image
 distance_string = "Distance: {:.2f}".format(sum(distance_array)/len(distance_array))
 cv2.putText(image, distance_string, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
+# Save the edited image
 cv2.imwrite('distance_image.jpg', image)
 
 # Display the image with the text
