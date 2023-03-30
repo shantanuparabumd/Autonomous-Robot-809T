@@ -88,7 +88,7 @@ def key_input(event):
     print("Key: ",event)
 
     key_press =event
-    tf=0.5
+    tf=2
 
     if key_press.lower() == 'w':
         forward(tf)
