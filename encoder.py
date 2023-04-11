@@ -1,9 +1,12 @@
 import RPi.GPIO as gpio
 import numpy as np
 
+
+ENCODER=7
+
 def inti():
     gpio.setmode(gpio.BOARD)
-    gpio.setup(12, gpio.IN, pull_up_down = gpio.PUD_UP)
+    gpio.setup(ENCODER, gpio.IN, pull_up_down = gpio.PUD_UP)
 
 def gameover():
     gpio.cleanup()
@@ -17,8 +20,8 @@ button = int(0)
 
 while True:
 
-    if int(gpio.input(12)) != int(button):
-         button = int(gpio.input(12))
+    if int(gpio.input(ENCODER)) != int(button):
+         button = int(gpio.input(ENCODER))
          counter+=1
          print(counter)
 

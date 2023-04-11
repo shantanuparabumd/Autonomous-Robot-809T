@@ -15,6 +15,9 @@ IN2 = 33
 IN3 = 35
 IN4 = 37
 
+pwm=gpio.PWM(36,50)
+pwm.start(8)
+
 # Initialize the Raspberry Pi camera
 camera = PiCamera()
 camera.resolution = (640, 480)
@@ -64,6 +67,8 @@ def init():
     gpio.setup(IN2, gpio.OUT)
     gpio.setup(IN3, gpio.OUT)
     gpio.setup(IN4, gpio.OUT)
+
+    gpio.setup(36, gpio.OUT)
 
 def gameover():
     gpio.output(IN1, False)
@@ -139,6 +144,9 @@ def pivotright(tf):
     gameover()
     gpio.cleanup()
 
+def move(t):
+    pwm.ChangeDutyCycle(t)
+
 
 font = cv2.FONT_HERSHEY_SIMPLEX #Setting the Font
 textcolorf = (0,255,0)
@@ -158,7 +166,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     image=cv2.flip(image,0)
     image=cv2.flip(image,1)
     # Show the frame to our screen
-
+    print("Distance: ",distance())
     cv2.putText(image,'Distance: '+str(distance()),(20,30), font,0.5,textcolorf,1,cv2.LINE_AA)
     # Write frame to video file
     out.write(image)
@@ -192,6 +200,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         s,a,d,w=0,0,0,0
         gameover()
         gpio.cleanup()
+    if key == ord('o'):
+        move(13)
+    if key== ord('c'):
+        move(7)
+
     
     # Adjust motor speed based on distance
     if distance() <= 10:    # Obstacle too close, stop motor
