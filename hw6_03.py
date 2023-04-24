@@ -1,5 +1,6 @@
 import RPi.GPIO as gpio
 import time
+import SERV
 
 #Define pin allocations
 trig=16
@@ -136,6 +137,7 @@ def key_input(event):
     print("Distance: ",distance())
     key_press =event
     tf=2
+    servo.set
 
     if key_press.lower() == 'w':
         forward(tf)

@@ -9,27 +9,24 @@ from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 
 
-# Define time stamp & record an image
-pic_time = datetime.now().strftime('%Y%m%d%H%M%S')
-command = 'raspistill -w 1280 -h 720 -vf -hf -o ' +pic_time+'.jpg'
-os.system(command)
 
 smtpUser = 'sparab@umd.edu'
 smtpPass = 'oeonpzethtnqlxxt'
 
-toAdd = 'mitchels.umd@gmail.com'
+toAdd = 'ENPM809TS19@gmail.com'
 fromAdd = smtpUser
-subject = 'Image recorded at '+ pic_time
+subject = 'Homework 9 Part 2 Submission'
 msg = MIMEMultipart()
 msg['Subject'] = subject
 msg['From'] = fromAdd
 msg['To'] = toAdd
-msg.preamble = "Image recorded at "+ pic_time
+msg['Cc'] = 'rpatil10@umd.edu'
+msg.preamble = "Homework Submission"
 
-body=MIMEText("Image recoredd at "+ pic_time)
+body=MIMEText("This mail servers as a part of homework 9 submission.\n PFA the image recorded after block retrival")
 msg.attach(body)
 
-fp=open(pic_time+'.jpg','rb')
+fp=open('hw9.jpg','rb')
 
 img = MIMEImage(fp.read())
 fp.close()

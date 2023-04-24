@@ -167,6 +167,7 @@ out = cv2.VideoWriter('hw6.avi', fourcc, 10, (640, 480))
 delay=0.1
 w,s,a,d,x,o,c=0,0,0,0,0,0,0
 # Keep looping
+i=0
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=False):
 # Grab the current frame
     image = frame.array
@@ -175,16 +176,22 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # Show the frame to our screen
     print("Distance: ",distance())
     cv2.putText(image,'Distance: '+str(distance()),(20,30), font,0.5,textcolorf,1,cv2.LINE_AA)
+    cv2.putText(image,f'Image {i} Captured',(20,50), font,0.5,textcolorf,1,cv2.LINE_AA)
     # Write frame to video file
-    out.write(image)
     cv2.imshow("Frame", image)
+   
+    
+    out.write(image)
+    
     key = cv2.waitKey(1) & 0xFF
     # Clear the stream in preparation for the next frame
     rawCapture.truncate(0)
     
-    if key == ord("q"): 
-        cv2.imwrite('capture_distance_test.jpg',image)     
+    if key == ord("q"):    
         break
+    if key == ord("e"):
+        cv2.imwrite(f'image_{i}.jpg',image)
+        i+=1  
     
     if key == ord('w') or w==1:   # Move forward
         w=1
