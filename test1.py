@@ -44,6 +44,7 @@ class Robot:
         self.OPEN=0
         self.MOVING=0
         self.POSITION=0
+        self.EXPLORE=1
         
         self.counterBR = np.uint64(0)
         self.counterFL = np.uint64(0)
@@ -77,8 +78,8 @@ class Robot:
         time.sleep(0.1)
 
         self.Kp = 5
-        self.Ki = 0.00
-        self.Kd = 0.0
+        self.Ki = 0.001
+        self.Kd = 0.02
         self.setpoint = 0
         self.last_error = 0
         self.integral = 0
@@ -86,30 +87,37 @@ class Robot:
         fourcc = cv2.VideoWriter_fourcc(*'XVID')
         self.out = cv2.VideoWriter('hw9_block_retrival.avi', fourcc, 10, (640, 480))
 
+        self.set_angle=0
 
         #Mapping
-        self.scale=3
-        self.obstacle_size=5
-        self.occupancy_grid=np.zeros((305*self.scale, 305*self.scale,3))
+        self.scale=1
+        self.obstacle_size=4
+        self.occupancy_grid=np.ones((305*self.scale, 305*self.scale,3))
+        self.occupancy_grid[:,:]=[255,255,255]
     
-    def update_occupancy_grid(self,x,y):
+    def update_occupancy_grid(self,x,y,color):
         xc=int(round(x*100))
         yc=int(round(y*100))
-        self.occupancy_grid[xc-self.obstacle_size:xc+self.obstacle_size,yc-self.obstacle_size:yc+self.obstacle_size]=[255,255,255]
+        self.occupancy_grid[xc-self.obstacle_size:xc+self.obstacle_size,yc-self.obstacle_size:yc+self.obstacle_size]=color
 
     def get_block_pose(self,depth,angle):
         new_depth=depth/math.cos(angle)
-        yn=new_depth*math.sin(self.robot_pose[2]-angle)
-        xn=new_depth*math.cos(self.robot_pose[2]-angle)
-        xb=xn+self.robot_pose[0]
-        yb=yn+self.robot_pose[1]
-        return xb,yb
+        yn=new_depth*math.sin(math.radians(self.pose[2])+angle)
+        xn=new_depth*math.cos(math.radians(self.pose[2])+angle)
+        xb=xn+self.pose[0]
+        yb=yn+self.pose[1]
+        return xb/1000,yb/1000
     
-    def create_map(self,blocks):
-#         while not self.check_occupancy_grid():
-        for i in blocks:
-            x,y=self.get_block_pose(blocks[0],math.radians(blocks[1]))
-            self.update_occupancy_grid(x,y)
+  
+
+    def show(self):
+            # Create an OpenCV image from the matrix
+            array = np.uint8(self.occupancy_grid)
+
+            # Display the image using OpenCV
+            cv2.imshow('Image', array)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
 
     def compute_distance_and_angle(self,current, goal):
         # Extract x and y coordinates for both points
@@ -141,29 +149,7 @@ class Robot:
         return X,Y,self.yaw,DISTANCE
 
 
-    def search(self,x,y):
-        current=self.pose
-        distance,g_angle=self.compute_distance_and_angle(current[:2],(x,y))
-        X,Y,Theta,c_distance=self.get_location(self.counterBR,self.counterFL,current)
-        if c_distance<distance:
-            self.get_yaw()
-            angle=self.yaw-g_angle
-            if angle<3 and angle>-3:
-                self.control()
-                X,Y,Theta,c_distance=self.get_location(self.counterBR,self.counterFL,current)
-                self.counterBR,self.counterFL=0,0
-                self.pose=[X,Y,Theta]
-            else:
-                if angle>0:
-                    self.control_angle(angle,1)
-                    self.counterBR,self.counterFL=0,0
-                    print("Clockwise")
-                else:
-                    self.control_angle(angle,2)
-                    self.counterBR,self.counterFL=0,0
-                    print("CounterClockwise")
-        else:
-            self.counterBR,self.counterFL=0,0
+   
 
     def get_yaw(self):
             for i in range(20):
@@ -232,7 +218,9 @@ class Robot:
 
 
         
-    def get_position(self,px):
+    def get_position(self,px,height):
+        
+        block_height=57.15 #in mm
         # FOV in degree
         hfov=62.2
         dppx=hfov/640
@@ -242,7 +230,11 @@ class Robot:
         else:
             px=((640/2)-px)*-1
         azimuth=dppx*px
-        return azimuth
+        frame_height=480
+        focal_length = 3.04
+        sensor_height=2.76
+        d = (focal_length*block_height*frame_height)/(height*sensor_height)
+        return azimuth,d
     
     def update(self, angle):
         # Compute error
@@ -268,7 +260,7 @@ class Robot:
         self.turning=1
         self.BASE_DUTYCYCLE=0.0
         control_val=self.update(angle)
-        
+        print(control_val)
         if direction==1:
             self.pwm1.ChangeDutyCycle(min(self.BASE_DUTYCYCLE+control_val,50.0))
             self.pwm4.ChangeDutyCycle(min(self.BASE_DUTYCYCLE+control_val,50.0))
@@ -302,27 +294,6 @@ class Robot:
         self.pwm2.ChangeDutyCycle(self.BASE_DUTYCYCLE)
         self.pwm3.ChangeDutyCycle(0)
         self.pwm4.ChangeDutyCycle(0)
-
-    def reverse(self):
-        KP=5
-        self.BASE_DUTYCYCLE=40
-       
-        error=self.counterBR-self.counterFL
-        if error>0:
-            self.pwm3.ChangeDutyCycle(min(self.BASE_DUTYCYCLE+error*KP,100))
-            self.pwm4.ChangeDutyCycle(self.BASE_DUTYCYCLE)
-            self.pwm1.ChangeDutyCycle(0)
-            self.pwm2.ChangeDutyCycle(0)
-        elif error<0:
-            self.pwm4.ChangeDutyCycle(min(self.BASE_DUTYCYCLE-error*KP,100))
-            self.pwm2.ChangeDutyCycle(0)
-            self.pwm3.ChangeDutyCycle(self.BASE_DUTYCYCLE)
-            self.pwm1.ChangeDutyCycle(0)
-        else:
-            self.pwm3.ChangeDutyCycle(self.BASE_DUTYCYCLE)
-            self.pwm4.ChangeDutyCycle(self.BASE_DUTYCYCLE)
-            self.pwm1.ChangeDutyCycle(0)
-            self.pwm2.ChangeDutyCycle(0)
 
     def gameover(self):
         self.pwm3.ChangeDutyCycle(0)
@@ -398,35 +369,17 @@ class Robot:
         else:
             return False
         
-    def main(self):
-        
-        self.pwm_setup(self.L_IN,self.R_OUT,self.L_OUT,self.R_IN)
-        # Define variables for frame rate and status display
-        status = 0
-        display_status="Searching for Block"
-        complete=0
-        k=0
-        # self.get_count()
-        # Get the current time in seconds since the epoch
-        # Loop through each frame of the video
-        for frame in self.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=False):
-            # self.get_count()
-            # Start time
-            x,y,w,h=0,0,0,0
-            # grab the current frame
-            img = frame.array
-            img=cv2.flip(img,0)
-            img=cv2.flip(img,1)
-
+    def get_blocks(self,img):
+            blocks=[]
             # Convert the image to the HSV color space
             hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
             # Define the lower and upper bounds of the green color range in HSV
-            lower_green = np.array([53, 145, 51])
-            upper_green = np.array([179, 255, 247])
+            lower_red = np.array([155, 165, 79])
+            upper_red = np.array([177, 255, 237])
 
             # Create a mask to isolate green pixels
-            mask = cv2.inRange(hsv_img, lower_green, upper_green)
+            mask = cv2.inRange(hsv_img, lower_red, upper_red)
 
             # Apply erosion and dilation to remove noise and make corners smooth
             kernel = np.ones((3,3),np.uint8)
@@ -438,161 +391,188 @@ class Robot:
 
             # Find the contours in the binary image
             contours, hierarchy = cv2.findContours(mask_blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            contours = sorted(contours, key=cv2.contourArea, reverse=True)[:1]
-
-            if len(contours)==0:
-                # Default the readings
-                status = 0
-            else:
-                # Update status
-                
-
-                # Find the maximum contour
-                # max_contour = max(contours, key=cv2.contourArea)
+            contours = sorted(contours, key=cv2.contourArea, reverse=True)[:3]
+            if len(contours)>0:
                 for max_contour in contours:
                     area = cv2.contourArea(max_contour)
-                    # cv2.putText(img, str(area), (100,200), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
                     if area>450.0 and area<3100.0:
-                        status = 1
-                    # Draw a bounding box around the max contour and mask everything else
-                    x,y,w,h = cv2.boundingRect(max_contour)
-                    tolerance=0
-                    mask = np.zeros(mask_blur.shape, np.uint8)
-                    mask[y:y+h+tolerance, x:x+w+tolerance] = mask_blur[y:y+h+tolerance, x:x+w+tolerance]    
-                    # cv2.rectangle(img, (x, y), (x+w, y+h), (0,0,255), 2)
-                    # X,Y,Z=get_position(x+(w/2),y+(h/2),h)
-                    cv2.circle(img, (int(x+(w/2)),int(y+(h/2))), 2, (0,0,0), -1)
-                    cv2.circle(img, (int(x+(w/2)),int(y+(h/2))), 20, (0,255,255), 1)
-                    # co=str(int(x+(w/2)))+" "+str(int(y+(h/2)))+str(y)+" "+str(h)
-                    # cv2.putText(img, str(x+(w/2))+" "+str(y+(h/2)), (100,100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
-                    
-        
-        
-            cv2.line(img, (320, 220), (320, 260), (0, 0, 0), 2)
-            cv2.line(img, (300, 240), (340, 240), (0, 0, 0), 2)
+                        x,y,w,h = cv2.boundingRect(max_contour)
+                        tolerance=0
+                        mask = np.zeros(mask_blur.shape, np.uint8)
+                        mask[y:y+h+tolerance, x:x+w+tolerance] = mask_blur[y:y+h+tolerance, x:x+w+tolerance]    
+                        cv2.rectangle(img, (x,y),(x+w,y+h), (255,0,0), 1)
+                        blocks.append([x,y,w,h])
+            return blocks
+                        
+    def update_map(self,blocks,img):
+        for block in blocks:
+                x,y,w,h=block
+                X,Y,T,d=self.get_location(self.pose)
+                self.pose=[X,Y,T]
+                angle,depth=self.get_position(x+(w/2),h)
+                cv2.putText(img,f" Depth: {round(depth,2)}", (x,y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.25, (255, 0, 0), 1, cv2.LINE_AA)
+                cv2.putText(img,f" Angle: {round(angle,2)}", (x,y-25), cv2.FONT_HERSHEY_SIMPLEX, 0.25, (255, 0, 0), 1, cv2.LINE_AA)
+                
+                xb,yb=self.get_block_pose(depth,math.radians(angle))
+                cv2.putText(img,f" x: {round(xb,2)} y {round(yb,2)} ", (x,y+h+10), cv2.FONT_HERSHEY_SIMPLEX, 0.25, (0, 255, 0), 1, cv2.LINE_AA)
+                self.update_occupancy_grid(xb,yb,[0,0,255])
+                self.update_occupancy_grid(X,Y,[0,0,0])
+        # self.show()
 
-            angle=self.get_position(x+(w/2))
-            # cv2.putText(img, str(angle), (100,400), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
-            # self.get_count()
-            X,Y,Theta,c_distance=self.get_location(self.pose)
-            self.pose=[X,Y,Theta]
-            angle=self.yaw
-            
-            loc=[[0.25,0.25],[0.25,0.0],[0.8,0.8],[0.8,0.0],[1.2,0.4],[0.5,0.8]]
-            
-            if self.POSITION>5:
-                exit(0)
-            
-            
-            x,y=loc[self.POSITION]
-            self.get_yaw()
+    def explore(self,img):
+        buffer=3
+        X,Y,Theta,c_distance=self.get_location(self.pose)
+        self.pose=[X,Y,Theta]
+        angle=self.yaw
+        
+        # loc=[[0.25,0.25,90],[0.25,0.0,180],[0.8,0.8,10],[0.8,0.0,60],[1.2,0.4,45],[0.5,0.8,25]]
+        loc=[[0.0,0.0,45],[1.0,0.0,135],[1,0.5,180],[0.8,0.8,200],[0.5,0.8,270]]
+        if self.POSITION<5:
+            x,y,t=loc[self.POSITION]
             if self.MOVING==0:
                 distance,g_angle=self.compute_distance_and_angle(self.pose[:2],(x,y))
-                set_angle=g_angle
-            cv2.putText(img,f"X: {x} Y: {y} T: {set_angle}", (100,400), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
+                self.set_angle=g_angle
+
+            cv2.putText(img,f"X: {x} Y: {y} T: {self.set_angle}", (100,380), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 0, 0), 2, cv2.LINE_AA)
             if not self.check_goal(x,y,X,Y):
                 self.MOVING=1
-                if angle<3+set_angle and angle>set_angle-3:
-                    self.control()
-                    X,Y,Theta,c_distance=self.get_location(self.pose)
-                    
-                    self.pose=[X,Y,Theta]
-                    display_status="Moving towards block"
-                    print("moving Forward")
-                else:
-                    if angle<set_angle:
-                        self.control_angle(set_angle-angle,1)
+                add=False
+                cv2.putText(img,f"Acceptable Angle 1 {(self.set_angle+3)%360} - {(self.set_angle-3)%360}", (100,400), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 0, 0), 2, cv2.LINE_AA)
+                if (self.set_angle<=buffer and self.set_angle>=0) or (self.set_angle<=360 and self.set_angle>=360-buffer):
+                    if (angle<(buffer+self.set_angle)%360 and angle>=0) or  (angle>(self.set_angle-buffer)%360 and angle<=360):
+                        self.last_error = 0
+                        self.integral = 0
+                        self.control()
+                        X,Y,Theta,c_distance=self.get_location(self.pose)
                         
-                        print("Clockwise")
+                        self.pose=[X,Y,Theta]
+                        display_status="Moving towards block"
+                        print("moving Forward")
                     else:
-                        self.control_angle(angle-set_angle,2)
+                        diff=self.set_angle-angle
+                        print(F"{self.set_angle} {angle} {diff}")
+                        if diff<0:
+                            if abs(diff)>180:
+                                print(f"{abs(360+diff)} Clockwise")
+                                self.control_angle(abs(360+diff),1)
+                            else:
+                                print(f"{abs(diff)} Anti Clockwise")
+                                self.control_angle(abs(diff),2)
+                        elif diff>0:
+                            if abs(diff)<180:
+                                print(f"{abs(diff)} Clockwise")
+                                self.control_angle(abs(diff),1)
+                            else:
+                                print(f"{abs(diff)} Anti Clockwise")
+                                self.control_angle(abs(diff),2)
+
+                elif (self.set_angle>buffer and  self.set_angle<360-buffer):
+                    if angle<(buffer+self.set_angle)%360 and angle>(self.set_angle-buffer)%360 :
+                        self.last_error = 0
+                        self.integral = 0
+                        self.control()
+                        X,Y,Theta,c_distance=self.get_location(self.pose)
                         
-                        print("CounterClockwise")
+                        self.pose=[X,Y,Theta]
+                        display_status="Moving towards block"
+                        print("moving Forward")
+                    else:
+                        diff=self.set_angle-angle
+                        if diff<0:
+                            if abs(diff)>180:
+                                self.control_angle(abs(diff),1)
+                            else:
+                                self.control_angle(abs(diff),2)
+                        elif diff>0:
+                            if abs(diff)<180:
+                                self.control_angle(abs(diff),1)
+                            else:
+                                self.control_angle(abs(diff),2)
+               
+            elif not (angle<(buffer+t)%360 and angle>(t-buffer)%360):
+                cv2.putText(img,f"Acceptable Angle 2 {round((angle+3)%360,2)} - {round((angle-3)%360,)}", (100,400), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 0, 0), 2, cv2.LINE_AA)
+                print("Correcting angle")
+                diff=t-angle
+                if diff<0:
+                    if abs(diff)>180:
+                        self.control_angle(abs(diff),1)
+                    else:
+                        self.control_angle(abs(diff),2)
+                elif diff>0:
+                    if abs(diff)<180:
+                        self.control_angle(abs(diff),1)
+                    else:
+                        self.control_angle(abs(diff),2)
             else:
                 print("Reached Goal")
                 self.stop()
-                # time.sleep(5)
+                time.sleep(1)
                 self.MOVING=0
                 self.POSITION+=1
-            # c=0
-            # if self.PICKED==0:
-            #     # self.control()
-            #     if status==1:
-            #         if self.OPEN==0 and self.PICKED==0:
-            #             self.servo.ChangeDutyCycle(13.0)
-            #             self.OPEN=1
-            #             time.sleep(1)
-
-            #         if angle<2 and angle>-2:
-            #             self.control()
-            #             X,Y,Theta,c_distance=self.get_location(self.counterBR,self.counterFL,self.pose)
-            #             self.counterBR,self.counterFL=0,0
-            #             self.pose=[X,Y,Theta]
-            #             display_status="Moving towards block"
-            #             print("moving Forward")
-            #             if self.block_in_gripper(x,y,h,w):
-            #                 print(f" Count when picked the block {self.counterFL} {self.counterBR}")
-            #                 self.servo.ChangeDutyCycle(7.5)
-            #                 time.sleep(0.3)
-            #                 self.OPEN=0
-            #                 self.PICKED=1
-            #                 display_status="Block is Picked"
-            #                 # cv2.putText(img, "Block Is Picked", (100,450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
-            #                 c+=1
-            #                 self.counterBR,self.counterFL=0,0
-                            
-            #         else:
-            #             if angle>0:
-            #                 self.control_angle(angle,1)
-            #                 self.counterBR,self.counterFL=0,0
-            #                 print("Clockwise")
-            #             else:
-            #                 self.control_angle(angle,2)
-            #                 self.counterBR,self.counterFL=0,0
-            #                 print("CounterClockwise")
-                    
-            #     elif status==0:
-            #         # x = round(random.uniform(0.5, 2.5), 2)
-            #         # y = round(random.uniform(0.5, 2.5), 2)
-            #         x,y=0.5,0.5
-            #         display_status="Searching for Block"
-            #         print("Searching Block")
-            #         self.search(x,y)
-                  
-
-            # else:
+                self.last_error = 0
+                self.integral = 0
+        else:
+            self.EXPLORE=0
+        
+       
                 
-            #     if k <15:
-            #         display_status="Moving to Construction Zone"
-            #         print("Moving Back")
-            #         self.reverse()
-            #         self.counterBR,self.counterFL=0,0
-            #         k+=1
-            #     else:
-            #         self.servo.ChangeDutyCycle(13.0)
-            #         time.sleep(0.3)
-            #         display_status="Block Retrived Succesfully"
-            #         complete=1
-            #         status=0
-                
+    def main(self):
+        
+        self.pwm_setup(self.L_IN,self.R_OUT,self.L_OUT,self.R_IN)
+        # Define variables for frame rate and status display
+        status = 0
+        display_status="Searching for Block"
+        complete=0
+        k=0
+        # self.get_count()
+        # Get the current time in seconds since the epoch
+        # Loop through each frame of the video
+
+        block=0
+
+        for frame in self.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=False):
+            # self.get_count()
+            # Start time
+            # grab the current frame
+            img = frame.array
+            img=cv2.flip(img,0)
+            img=cv2.flip(img,1)
             
-            coordinate=f"X: {round(self.pose[0],2)} Y: {round(self.pose[1],2)} T: {self.pose[2]}"
-            cv2.putText(img, display_status, (100,100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 250, 0), 2, cv2.LINE_AA)
-            cv2.putText(img, coordinate, (100,50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 250, 255), 1, cv2.LINE_AA)
+            if self.MOVING==0:
+                blocks=self.get_blocks(img)
+                self.update_map(blocks,img)
+                # self.MOVING=1
+                        
+            cv2.line(img, (320, 220), (320, 260), (0, 0, 0), 2)
+            cv2.line(img, (300, 240), (340, 240), (0, 0, 0), 2)
+            if self.EXPLORE==1:
+                self.explore(img)
+            else:
+                print("Exploration Complete")
+                complete=1
+             
+            X,Y,Theta,c_distance=self.get_location(self.pose)
+            cv2.putText(img,f"Robot Pose {round(X,2)},{round(Y,2)},{round(Theta,2)}",(50,50),cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 250, 0), 2, cv2.LINE_AA)
+            # cv2.putText(img, display_status, (100,100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 250, 0), 2, cv2.LINE_AA)
             # Display the output
             cv2.imshow("Arrow Image", img)
             if complete==1:
-                cv2.imwrite("hw9.jpg",img)
+                # cv2.imwrite("hw9.jpg",img)
                 # self.send_mail()
-                exit(0)
+                self.show()
+                break
             
             
             self.out.write(img)
 
             key = cv2.waitKey(1) & 0xFF
             self.rawCapture.truncate(0)
-            if key == ord("q"):       
+            if key == ord("q"):      
                 break
+            if key == ord("w"):      
+                self.show()
+            if key == ord("f"):      
+                self.MOVING=0
             
    
         

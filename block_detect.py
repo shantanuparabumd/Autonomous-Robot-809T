@@ -65,9 +65,9 @@ def get_position(px,py,height):
     frame_height=480
     focal_length = 3.04
     sensor_height=2.76
-    x = (focal_length*block_height*frame_height)/(height*sensor_height)
+    d = (focal_length*block_height*frame_height)/(height*sensor_height)
     # print(distance)
-    return x,y,z
+    return d,
 
 # Define variables for frame rate and status display
 fps = 0
