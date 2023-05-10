@@ -6,7 +6,7 @@ import time
 trig=16
 echo=18
 
-def distance():
+def distance(trig,echo):
     gpio.setmode(gpio.BOARD)
     gpio.setup(trig,gpio.OUT)
     gpio.setup(echo,gpio.IN)
