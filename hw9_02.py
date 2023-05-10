@@ -430,7 +430,7 @@ class Robot:
             cv2.imshow("Arrow Image", img)
             if complete==1:
                 cv2.imwrite("hw9.jpg",img)
-                self.send_mail()
+                # self.send_mail()
                 exit(0)
             
             

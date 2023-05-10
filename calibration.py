@@ -31,7 +31,7 @@ class Robot:
     def __init__(self):
 
         #Initial Pose
-        self.pose=[0.0,0.3,0]
+        self.pose=[0.3,0.3,0]
 
         # CONSTANTS
         self.WHEEL_DIA=0.065
@@ -41,22 +41,11 @@ class Robot:
         self.TICKS_PER_MREV=8
         self.DIST_PER_REV=self.PI*self.WHEEL_DIA
         self.BUFFER=0.05
-        self.BASE_DUTYCYCLE=60
-        self.BASE_DUTYCYCLE_ANGLE=55
-        self.BASE_DUTYCYCLE_R=30
+        self.BASE_DUTYCYCLE=100
+        self.BASE_DUTYCYCLE_ANGLE=0
+        self.BASE_DUTYCYCLE_R=40
         self.TRUE_ANGLE=0.0
 
-        self.MAX_W=2.1
-        self.MAX_H=1.0
-
-        self.ZONE_X=1.2
-        self.ZONE_Y=0.4
-
-        # self.MAX_W=2.6
-        # self.MAX_H=2.6
-
-        # self.ZONE_X=1.8
-        # self.ZONE_Y=0.8
         
         # STATUS
         self.COLOR='WHITE'
@@ -84,7 +73,6 @@ class Robot:
         self.buttonBR = int(0)
         self.buttonFL = int(0)
         self.turning=0
-        self.search_counter=0
         # PINS
         self.L_IN=31
         self.L_OUT=33
@@ -93,32 +81,27 @@ class Robot:
         self.EN_LEFT=7
         self.EN_RIGHT=12
 
-        self.TRIG_F=16
-        self.ECHO_F=18
-        self.TRIG_B=29
-        self.ECHO_B=21
-
         # LED Setup
         self.led_pins = {'RED':22, 'GREEN':26, 'BLUE':24, 'YELLOW':38, 'WHITE':40}
-        self.LED='WHITE'
+        
         self.setup()
 
-        # IMU SERIAL SETUP
-        self.yaw=0.0
-        self.acc=0.0
-        self.ser = serial.Serial('/dev/ttyUSB0', 9600)
-        self.count_line=0
-        while self.count_line<=10:
-            if(self.ser.in_waiting>0):
-                self.count_line += 1
-                line = self.ser.readline()
-        # time.sleep(1)
-        self.camera = PiCamera()
-        self.camera.resolution = (640, 480)
-        self.camera.framerate = 25
-        self.rawCapture = PiRGBArray(self.camera, size=(640,480))
-        # allow the camera to warmup
-        time.sleep(0.1)
+        # # IMU SERIAL SETUP
+        # self.yaw=0.0
+        # self.acc=0.0
+        # self.ser = serial.Serial('/dev/ttyUSB0', 9600)
+        # self.count_line=0
+        # while self.count_line<=10:
+        #     if(self.ser.in_waiting>0):
+        #         self.count_line += 1
+        #         line = self.ser.readline()
+        # # time.sleep(1)
+        # self.camera = PiCamera()
+        # self.camera.resolution = (640, 480)
+        # self.camera.framerate = 25
+        # self.rawCapture = PiRGBArray(self.camera, size=(640,480))
+        # # allow the camera to warmup
+        # time.sleep(0.1)
 
 
         #CONTROL LOOP SETUP
@@ -134,7 +117,7 @@ class Robot:
 
         # VIDEO WRITTER
         fourcc = cv2.VideoWriter_fourcc(*'XVID')
-        self.out = cv2.VideoWriter('Grand_Challenge.avi', fourcc, 10, (640, 480))
+        self.out = cv2.VideoWriter('hw9_block_retrival.avi', fourcc, 10, (640, 480))
 
             
     #ROBOT SETUP
@@ -173,11 +156,6 @@ class Robot:
 
         for color in self.led_pins:
             gpio.setup(self.led_pins[color], gpio.OUT)
-
-        gpio.setup(self.TRIG_F,gpio.OUT)
-        gpio.setup(self.ECHO_F,gpio.IN)
-
-        time.sleep(1)
 
 
     # LOCALIZATION
@@ -305,7 +283,7 @@ class Robot:
         """Function to control the angle of robot"""
         self.turning=1
         
-        control_val=self.update(angle)
+        control_val=angle
         print(min(max(control_val,self.BASE_DUTYCYCLE_ANGLE),100.0))
         if direction==1:
             self.pwm1.ChangeDutyCycle(min(max(control_val,self.BASE_DUTYCYCLE_ANGLE),100.0))
@@ -319,36 +297,10 @@ class Robot:
             self.pwm3.ChangeDutyCycle(min(max(control_val,self.BASE_DUTYCYCLE_ANGLE),100.0))
         self.counterBR,self.counterFL=0,0
 
-    def recalibrate(self):
-        # dist_front=self.distance(self.TRIG_F,self.ECHO_F)
-        # dist_back=self.distance(self.TRIG_B,self.ECHO_B)
-        print("Recalibrating")
-        X,Y,theta=self.pose
-        if (theta>315 and theta<360) or (theta>=0 and theta<=45):
-            X=self.MAX_W
-        elif theta>45 and theta<=135:
-            Y=self.MAX_H
-        elif theta>135 and theta<=225:
-            X=0
-        elif theta>225 and theta<=315:
-            Y=0
-        self.pose=[X,Y,theta]
-        self.MOVING=0
-
+    
 
     def control(self):
         """Function to move the robot Forward"""
-        # Array to store distance
-        # distance_array=[]
-
-        # # Averaging the distances
-        # for i in range(10):
-        #     distance_array.append(self.distance(self.TRIG_F,self.ECHO_F))
-
-        # avg_dist=sum(distance_array)/len(distance_array)
-        # if avg_dist<20:
-        #     self.recalibrate()
-        # else:
         self.turning=0
         self.counterBR,self.counterFL=0,0
         self.pwm1.ChangeDutyCycle(self.BASE_DUTYCYCLE)
@@ -371,106 +323,19 @@ class Robot:
         self.pwm1.ChangeDutyCycle(0)
         self.pwm2.ChangeDutyCycle(0)
     
-    def send_mail(self):
-        smtpUser = 'sparab@umd.edu'
-        smtpPass = 'oeonpzethtnqlxxt'
 
-        # toAdd = 'ENPM809TS19@gmail.com'
-        toAdd = 'shantanuparab99@gmail.com'
-        fromAdd = smtpUser
-        subject = 'Grand Challenge'
-        msg = MIMEMultipart()
-        msg['Subject'] = subject
-        msg['From'] = fromAdd
-        msg['To'] = toAdd
-        # msg['Cc'] = 'rpatil10@umd.edu'
-        msg.preamble = "Homework Submission"
-
-        body=MIMEText("This mail servers as a part of homework 9 submission.\n PFA the image recorded after block retrival")
-        msg.attach(body)
-
-        fp=open('grand_challenge.jpg','rb')
-
-        img = MIMEImage(fp.read())
-        fp.close()
-        msg.attach(img)
-
-        s=smtplib.SMTP('smtp.gmail.com',587)
-        s.ehlo()
-        s.starttls()
-        s.ehlo()
-
-        s.login(smtpUser,smtpPass)
-        s.sendmail(fromAdd,toAdd,msg.as_string())
-        s.quit()
-        print("Email Delivered")
-
-    # def block_in_gripper(self,img,color):
-    #     """Check if the block is in the gripper"""
-    #     colors = {
-    #                 'RED': ([168, 152, 160], [179,255,255]),
-    #                 'GREEN': ([3,19,8],[78,206,255]),
-    #                 'BLUE': ([97,111,162], [112,239,255])
-    #                 }
-        
-    #     hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    #     # Create a mask to isolate green pixels
-    #     mask = cv2.inRange(hsv_img, np.array(colors[color][0]), np.array(colors[color][1]))
-    #     mask[0:400, :] = 0
-
-    #     # Apply erosion and dilation to remove noise and make corners smooth
-    #     kernel = np.ones((3,3),np.uint8)
-    #     erosion = cv2.erode(mask, kernel, iterations = 1)
-    #     dilation = cv2.dilate(erosion, kernel, iterations = 1)
-    #     # Apply gaussian blur to he mask
-    #     mask_blur = cv2.GaussianBlur(dilation, (3, 3), 0)
-    #     # Find the contours in the binary image
-    #     contours, hierarchy = cv2.findContours(mask_blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    #     contours = sorted(contours, key=cv2.contourArea, reverse=True)[:1]
-    #     status=0
-    #     x,y,w,h=0,0,0,0
-    #     cx,cy=0,0
-    #     angle=0
-    #     if len(contours)==0:
-    #         status = 0
-    #     else:
-    #         for max_contour in contours:
-    #             area = cv2.contourArea(max_contour)
-    #             if area>400.0 and area<4000.0:
-    #                 status = 1
-    #                 x,y,w,h = cv2.boundingRect(max_contour)
-    #                 tolerance=0
-    #                 mask = np.zeros(mask_blur.shape, np.uint8)
-    #                 mask[y:y+h+tolerance, x:x+w+tolerance] = mask_blur[y:y+h+tolerance, x:x+w+tolerance]    
-    #                 cv2.circle(img, (int(x+(w/2)),int(y+(h/2))), 2, (0,0,0), -1)
-    #                 cv2.circle(img, (int(x+(w/2)),int(y+(h/2))), 20, (0,255,255), 1)
-    #                 cv2.rectangle(img,(int(x),int(y)),(int(x+w),int(y+h)),(0,0,0),1)
-    #                 cv2.putText(img,f"Area {area}",(int(x-5),int(y-5)),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (25, 255, 0), 2, cv2.LINE_AA)
-    #                 cx,cy=int(x+(w/2)),int(y+(h/2))
-    #     if cx<340 and cx>300 and cy>440:
-    #         return True
-    #     else:
-    #         return False
-    
     def block_in_gripper(self,x,y,h,w):
         """Check if the block is in the gripper"""
-        if (x+w/2)>260 and (x+w/2)<380 and (y+h/2)>420:
+        if (x+w/2)>275 and (x+w/2)<360 and (y+h/2)>440:
             return True
         else:
             return False
         
+    
     def check_goal(self,x,y,cx,cy):
         """Check if the robot has reached the goal position"""
         distance = math.sqrt((cx - x)**2 + (cy - y)**2)
-        if distance <= 0.07:
-            return True
-        else:
-            return False
-        
-    def check_drop(self,cx,cy):
-        """Check if the robot has reached the goal position"""
-        # distance = math.sqrt((cx - x)**2 + (cy - y)**2)
-        if cx>self.ZONE_X and cy<self.ZONE_Y:
+        if distance <= 0.05:
             return True
         else:
             return False
@@ -483,18 +348,15 @@ class Robot:
         X,Y,Theta,c_distance=self.get_location(self.pose)
         self.pose=[X,Y,Theta]
         angle=self.yaw
-        # print("Exploring in Function")
+        
         # loc=[[0.25,0.25,90],[0.25,0.0,180],[0.8,0.8,10],[0.8,0.0,60],[1.2,0.4,45],[0.5,0.8,25]]
         # loc=[[0.0,0.0,45],[1.0,0.0,135],[1,0.5,180],[0.8,0.8,200],[0.5,0.8,270]]
-        loc=[[0.7,0.3,45],[1.0,0.7,270]]
-        # loc=[[1.3,1.3,0]]
-        # loc=[[1.25,0.5,90],[2.0,0.8,180],[1.25,1.0,270],[0.5,0.8,0],[1.25,0.8,0]]
+        # loc=[[0.3,0.3,45],[1.5,0.3,90],[2.5,1.5,180],[1.5,2.5,270],[0.5,1.5,0]]
+        loc=[[0.3,0.3,45],[0.8,0.8,270]]
         x,y,t=loc[self.POSITION]
-        # print(f"To Location {x,y,t}")
         if self.MOVING==0:
             distance,g_angle=self.compute_distance_and_angle(self.pose[:2],(x,y))
-            self.set_angle=g_angle%360
-            # print(f"Got set angle {g_angle}")
+            self.set_angle=g_angle
 
         # cv2.putText(img,f"X: {x} Y: {y} T: {self.set_angle}", (100,380), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 0, 0), 2, cv2.LINE_AA)
         if not self.check_goal(x,y,X,Y):
@@ -503,13 +365,11 @@ class Robot:
                 if (angle<(buffer+self.set_angle)%360 and angle>=0) or  (angle>(self.set_angle-buffer)%360 and angle<=360):
                     self.last_error = 0
                     self.integral = 0
-                    # print(f"Moving to goal")
                     self.control()
                     X,Y,Theta,c_distance=self.get_location(self.pose)
                     self.pose=[X,Y,Theta]
                     
                 else:
-                    # print("angle control")
                     diff=self.set_angle-angle
                     if diff<0:
                         if abs(diff)>180:
@@ -524,14 +384,12 @@ class Robot:
 
             elif (self.set_angle>buffer and  self.set_angle<360-buffer):
                 if angle<(buffer+self.set_angle)%360 and angle>(self.set_angle-buffer)%360 :
-                    # print(f"Moving to goal")
                     self.last_error = 0
                     self.integral = 0
                     self.control()
                     X,Y,Theta,c_distance=self.get_location(self.pose)
                     self.pose=[X,Y,Theta]
                 else:
-                    # print("angle control")
                     diff=self.set_angle-angle
                     if diff<0:
                         if abs(diff)>180:
@@ -603,7 +461,7 @@ class Robot:
             self.set_angle=g_angle%360
             self.MOVING=1
             print(f"To {x,y} from {X,Y} set angle {self.set_angle} distance {distance}")
-        if not self.check_drop(X,Y):
+        if not self.check_goal(x,y,X,Y):
             print()
             self.MOVING=1
             if (self.set_angle<=buffer and self.set_angle>=0) or (self.set_angle<=360 and self.set_angle>=360-buffer):
@@ -663,7 +521,7 @@ class Robot:
         self.pwm1.ChangeDutyCycle(0)
         self.pwm2.ChangeDutyCycle(0)
 
-    def pick_block(self,img,lower,upper,color):
+    def pick_block(self,img,lower,upper):
             X,Y,Theta,c_distance=self.get_location(self.pose)
             self.pose=[X,Y,Theta]
             """Function to pick up a block within range"""
@@ -671,8 +529,6 @@ class Robot:
             hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
             # Create a mask to isolate green pixels
             mask = cv2.inRange(hsv_img, lower, upper)
-            mask[0:240, :] = 0
-
             # Apply erosion and dilation to remove noise and make corners smooth
             kernel = np.ones((3,3),np.uint8)
             erosion = cv2.erode(mask, kernel, iterations = 1)
@@ -690,7 +546,7 @@ class Robot:
             else:
                 for max_contour in contours:
                     area = cv2.contourArea(max_contour)
-                    if area>400.0 and area<10000.0:
+                    if area>400.0 and area<17000.0:
                         status = 1
                         x,y,w,h = cv2.boundingRect(max_contour)
                         tolerance=0
@@ -719,14 +575,9 @@ class Robot:
                     if self.block_in_gripper(x,y,h,w):
                         X,Y,Theta,c_distance=self.get_location(self.pose)
                         self.pose=[X,Y,Theta]
-                        self.control()
-                        time.sleep(0.2)
-                        
-                        self.servo.ChangeDutyCycle(7.5)
                         self.stop()
-                        time.sleep(0.7)
-                        cv2.imwrite("grand_challenge.jpg",img)
-                        self.send_mail()
+                        self.servo.ChangeDutyCycle(7.5)
+                        time.sleep(0.5)
                         
                         self.EXPLORE=0
                         self.SERVO_OPEN=0
@@ -740,231 +591,23 @@ class Robot:
                     else:
                         self.control_angle(angle,2)
             elif status==0:
-                self.pwm1.ChangeDutyCycle(self.BASE_DUTYCYCLE_ANGLE)
-                self.pwm4.ChangeDutyCycle(self.BASE_DUTYCYCLE_ANGLE)
+                self.pwm1.ChangeDutyCycle(35.0)
+                self.pwm4.ChangeDutyCycle(35.0)
                 self.pwm2.ChangeDutyCycle(0.0)
                 self.pwm3.ChangeDutyCycle(0.0)
-                self.search_counter+=1
-                if self.search_counter>360:
-                    self.search_counter=0
-                    self.EXPLORE=1
-                    self.MOVING=0
-                    self.SEARCH=0
-                    self.PICK=0
-                    self.POSITION+=1
-
-    def distance(self,trig,echo):
-        
-        #Ensure output has no value
-        gpio.output(trig, False)
-        time.sleep(0.01)
-
-        #Genereate trigger pulse
-        gpio.output(trig,True)
-        time.sleep(0.00001)
-        gpio.output(trig, False)
-        pulse_start,pulse_end=0,0
-        #Generate echo time signal
-        while gpio.input(echo) == 0:
-            pulse_start = time.time()
-
-        while gpio.input(echo)== 1:
-            pulse_end = time.time()
-
-        pulse_duration = pulse_end-pulse_start
-
-        #Convert time to distance
-        distance = pulse_duration*17150
-        distance = round(distance, 2)
-
-        #Cleanup gpio 7 return distance
-        return distance    
+                
 
     def main(self):
         """Main Function to Run the Algorithm"""
         self.pwm_setup(self.L_IN,self.R_OUT,self.L_OUT,self.R_IN)
-
-        block_sequence=['RED','GREEN','BLUE']
-        block_number=1
-        blocks_picked=0
-        new_block=True
-        for frame in self.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=False):
-            if (self.R_SCORE+self.B_SCORE+self.G_SCORE)>=9:
-                print("All blocks Picked")
-                self.gameover()
+        while True:
+            pwm=int(input("Enter PWM: "))
+            self.control_angle(pwm,1)
+            time.sleep(4)
+            self.control_angle(pwm,2)
+            time.sleep(4)
+            if pwm==0:
                 break
-            img = frame.array
-            img=cv2.flip(img,0)
-            img=cv2.flip(img,1)
-            distance_array=[]
-            for i in range(20):
-                distance_array.append(self.distance(self.TRIG_F,self.ECHO_F))
-
-            avg_dist=sum(distance_array)/len(distance_array)
-            if self.MOVE_TO_ZONE==1:
-                if avg_dist>0 and avg_dist<35:
-                    self.recalibrate()
-                    print(avg_dist)
-            if self.SEARCH==1:
-                print("Search")
-                self.STATUS='SEARCH'
-                if new_block==True:
-                    block_to_pick=block_sequence[block_number-1]
-                    self.COLOR=block_to_pick
-                    self.LED=self.COLOR
-                    block_number+=1
-                    if block_number>3:
-                        block_number=1
-                # Competition
-                # colors = {
-                #     'RED': ([20, 136, 0], [179,255,255]),
-                #     'GREEN': ([75,67,76],[102,229,229]),
-                #     'BLUE': ([86,72,122], [122,226,255]),
-                #     'yellow': ([17,85,131], [38,248,230]),
-                #     'black': ([100,35,15], [155,255,95]),
-                #     'white': ([0,0,203], [151,33,255])
-                #     }
-                # Home
-                # colors = {
-                #     'RED': ([165, 71, 81], [179,255,255]),
-                #     'GREEN': ([41,49,62],[68,170,175]),
-                #     'BLUE': ([106,52,68], [125,233,187]),
-                #     'yellow': ([17,85,131], [38,248,230]),
-                #     'black': ([100,35,15], [155,255,95]),
-                #     'white': ([0,0,203], [151,33,255])
-                #     }
-                colors = {
-                    'RED': ([169, 192, 60], [179,255,255]),
-                    'GREEN': ([22,27,27],[101,226,208]),
-                    'BLUE': ([105,134,63], [166,244,244]),
-                    'yellow': ([17,85,131], [38,248,230]),
-                    'black': ([100,35,15], [155,255,95]),
-                    'white': ([0,0,203], [151,33,255])
-                    }
-                
-                
-                if self.PICK==1:
-                    self.STATUS='PICK'
-                    # Define the lower and upper bounds of the green color range in HSV
-                    lower = np.array(colors[block_to_pick][0])
-                    upper = np.array(colors[block_to_pick][1])
-                    self.pick_block(img,lower,upper,block_to_pick)
-                    new_block=False
-                # Start Searching for block and pick
-                if self.DROP==1:
-                    self.STATUS='DROP'
-                    print("Dropping block")
-                    self.servo.ChangeDutyCycle(13.0)
-                    time.sleep(0.1)
-                    self.reverse()
-                    time.sleep(1)
-                    X,Y,T=self.pose
-                    self.stop()
-                    print(f"Pose before revers {X,Y,T}")
-                    X=X-0.07*math.cos(math.radians(T))
-                    Y=Y-0.07*math.sin(math.radians(T))
-                    print(f"Pose after revers {X,Y,T}")
-                    self.servo.ChangeDutyCycle(7.0)
-                    time.sleep(0.1)
-                    self.counterBR=0
-                    self.counterFL=0
-                    self.pose=[X,Y,T]
-                    self.DROP=0
-                    self.DROP_COUNT+=1
-                    self.SEARCH=0
-                    self.EXPLORE=1
-                    self.MOVING=0
-                    if self.COLOR=='RED':
-                        self.R_SCORE+=1
-                    elif self.COLOR=='BLUE':
-                        self.B_SCORE+=1
-                    elif self.COLOR=='GREEN':
-                        self.G_SCORE+=1
-                    new_block=True
-                        
-            cv2.line(img, (320, 220), (320, 260), (0, 0, 0), 2)
-            cv2.line(img, (300, 240), (340, 240), (0, 0, 0), 2)
-
-            if self.EXPLORE==1:
-                self.LED='WHITE'
-                print("Explore")
-                self.STATUS='EXPLORE'
-                self.explore(img)
-
-            if self.MOVE_TO_ZONE==1:
-                self.LED='YELLOW'
-                print("Moving to Zone")
-                self.STATUS='MOVING TO ZONE'
-                flag=self.travel(2.15,0.3,img)
-                if flag==1:
-                    self.DROP=1
-                    self.SEARCH=1
-                    self.MOVE_TO_ZONE=0
-
-                
-            # print(f"Position {self.POSITION}")
-            X,Y,Theta,c_distance=self.get_location(self.pose)
-            cv2.rectangle(img, (0,0),(200,20), (255,255,255), 2)
-            cv2.putText(img,f"Pose {round(X,2)},{round(Y,2)},{round(Theta,2)}",(5,15),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (10,255,40), 1, cv2.LINE_AA)
-            cv2.putText(img,self.STATUS,(5,470),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,200), 1, cv2.LINE_AA)
-            cv2.putText(img,str(avg_dist),(5,450),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,200), 1, cv2.LINE_AA)
-            colors_display = {
-                    'RED': (0,0,255),
-                    'GREEN': (0,255,0),
-                    'BLUE': (255,0,0),
-                    'WHITE': (255,255,255)
-                    }
-            
-            for color in self.led_pins:
-                if color==self.LED:
-                    gpio.output(self.led_pins[color], gpio.HIGH)
-                else:
-                    gpio.output(self.led_pins[color], gpio.LOW)
-
-            cv2.putText(img,self.COLOR,(580,450),cv2.FONT_HERSHEY_SIMPLEX, 0.5, colors_display[self.COLOR], 1, cv2.LINE_AA)
-            cv2.putText(img,str(self.R_SCORE),(580,470),cv2.FONT_HERSHEY_SIMPLEX, 0.5,(0,0,255), 1, cv2.LINE_AA)
-            cv2.putText(img,str(self.G_SCORE),(600,470),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,0), 1, cv2.LINE_AA)
-            cv2.putText(img,str(self.B_SCORE),(620,470),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,0,0), 1, cv2.LINE_AA)
-            # Display the output
-            cv2.imshow("Grand Challenge", img)
-            
-            self.out.write(img)
-
-            key = cv2.waitKey(1) & 0xFF
-            self.rawCapture.truncate(0)
-            if key == ord("q"):      
-                break
-            if key == ord("w"):      
-                self.show()
-            if key == ord("f"):      
-                self.EXPLORE=0
-                self.SERVO_OPEN=0
-                self.PICK=0
-                self.PLAN=1
-                self.DROP=0
-                self.SEARCH=0
-                self.MOVING=0
-                self.MOVE_TO_ZONE=1
-            
-            if key == ord("p"):      
-                self.EXPLORE=0
-                self.SERVO_OPEN=0
-                self.PICK=1
-                self.PLAN=0
-                self.DROP=0
-                self.SEARCH=1
-                self.MOVING=0
-                self.MOVE_TO_ZONE=0
-
-            if key == ord("d"):      
-                self.EXPLORE=0
-                self.SERVO_OPEN=0
-                self.PICK=0
-                self.PLAN=0
-                self.DROP=1
-                self.SEARCH=1
-                self.MOVING=0
-                self.MOVE_TO_ZONE=0
             
         
 

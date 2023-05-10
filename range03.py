@@ -8,7 +8,8 @@ import cv2
 #Define pin allocations
 trig=16
 echo=18
-
+# trig=29
+# echo=21
 # Define function to calculate distance
 def distance():
     gpio.setmode(gpio.BOARD)

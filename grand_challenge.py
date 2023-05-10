@@ -31,7 +31,7 @@ class Robot:
     def __init__(self):
 
         #Initial Pose
-        self.pose=[0.0,0.3,0]
+        self.pose=[0.3,0.3,0]
 
         # CONSTANTS
         self.WHEEL_DIA=0.065
@@ -42,21 +42,21 @@ class Robot:
         self.DIST_PER_REV=self.PI*self.WHEEL_DIA
         self.BUFFER=0.05
         self.BASE_DUTYCYCLE=60
-        self.BASE_DUTYCYCLE_ANGLE=55
+        self.BASE_DUTYCYCLE_ANGLE=35
         self.BASE_DUTYCYCLE_R=30
         self.TRUE_ANGLE=0.0
 
-        self.MAX_W=2.1
-        self.MAX_H=1.0
+        # self.MAX_W=2.1
+        # self.MAX_H=1.0
 
-        self.ZONE_X=1.2
-        self.ZONE_Y=0.4
+        # self.ZONE_X=1.2
+        # self.ZONE_Y=0.4
 
-        # self.MAX_W=2.6
-        # self.MAX_H=2.6
+        self.MAX_W=2.6
+        self.MAX_H=2.6
 
-        # self.ZONE_X=1.8
-        # self.ZONE_Y=0.8
+        self.ZONE_X=1.8
+        self.ZONE_Y=0.8
         
         # STATUS
         self.COLOR='WHITE'
@@ -122,7 +122,7 @@ class Robot:
 
 
         #CONTROL LOOP SETUP
-        self.Kp = 1.0
+        self.Kp = 1.5
         self.Ki = 0.01
         self.Kd = 0.4
         self.Ki=0
@@ -386,7 +386,7 @@ class Robot:
         # msg['Cc'] = 'rpatil10@umd.edu'
         msg.preamble = "Homework Submission"
 
-        body=MIMEText("This mail servers as a part of homework 9 submission.\n PFA the image recorded after block retrival")
+        body=MIMEText("This mail servers as a part of Grand Challenge submission.\n PFA the image recorded after block retrival")
         msg.attach(body)
 
         fp=open('grand_challenge.jpg','rb')
@@ -405,56 +405,11 @@ class Robot:
         s.quit()
         print("Email Delivered")
 
-    # def block_in_gripper(self,img,color):
-    #     """Check if the block is in the gripper"""
-    #     colors = {
-    #                 'RED': ([168, 152, 160], [179,255,255]),
-    #                 'GREEN': ([3,19,8],[78,206,255]),
-    #                 'BLUE': ([97,111,162], [112,239,255])
-    #                 }
-        
-    #     hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    #     # Create a mask to isolate green pixels
-    #     mask = cv2.inRange(hsv_img, np.array(colors[color][0]), np.array(colors[color][1]))
-    #     mask[0:400, :] = 0
-
-    #     # Apply erosion and dilation to remove noise and make corners smooth
-    #     kernel = np.ones((3,3),np.uint8)
-    #     erosion = cv2.erode(mask, kernel, iterations = 1)
-    #     dilation = cv2.dilate(erosion, kernel, iterations = 1)
-    #     # Apply gaussian blur to he mask
-    #     mask_blur = cv2.GaussianBlur(dilation, (3, 3), 0)
-    #     # Find the contours in the binary image
-    #     contours, hierarchy = cv2.findContours(mask_blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    #     contours = sorted(contours, key=cv2.contourArea, reverse=True)[:1]
-    #     status=0
-    #     x,y,w,h=0,0,0,0
-    #     cx,cy=0,0
-    #     angle=0
-    #     if len(contours)==0:
-    #         status = 0
-    #     else:
-    #         for max_contour in contours:
-    #             area = cv2.contourArea(max_contour)
-    #             if area>400.0 and area<4000.0:
-    #                 status = 1
-    #                 x,y,w,h = cv2.boundingRect(max_contour)
-    #                 tolerance=0
-    #                 mask = np.zeros(mask_blur.shape, np.uint8)
-    #                 mask[y:y+h+tolerance, x:x+w+tolerance] = mask_blur[y:y+h+tolerance, x:x+w+tolerance]    
-    #                 cv2.circle(img, (int(x+(w/2)),int(y+(h/2))), 2, (0,0,0), -1)
-    #                 cv2.circle(img, (int(x+(w/2)),int(y+(h/2))), 20, (0,255,255), 1)
-    #                 cv2.rectangle(img,(int(x),int(y)),(int(x+w),int(y+h)),(0,0,0),1)
-    #                 cv2.putText(img,f"Area {area}",(int(x-5),int(y-5)),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (25, 255, 0), 2, cv2.LINE_AA)
-    #                 cx,cy=int(x+(w/2)),int(y+(h/2))
-    #     if cx<340 and cx>300 and cy>440:
-    #         return True
-    #     else:
-    #         return False
+   
     
     def block_in_gripper(self,x,y,h,w):
         """Check if the block is in the gripper"""
-        if (x+w/2)>260 and (x+w/2)<380 and (y+h/2)>420:
+        if (x+w/2)>260 and (x+w/2)<380 and (y+h/2)>410:
             return True
         else:
             return False
@@ -462,7 +417,7 @@ class Robot:
     def check_goal(self,x,y,cx,cy):
         """Check if the robot has reached the goal position"""
         distance = math.sqrt((cx - x)**2 + (cy - y)**2)
-        if distance <= 0.07:
+        if distance <= 0.1:
             return True
         else:
             return False
@@ -486,8 +441,8 @@ class Robot:
         # print("Exploring in Function")
         # loc=[[0.25,0.25,90],[0.25,0.0,180],[0.8,0.8,10],[0.8,0.0,60],[1.2,0.4,45],[0.5,0.8,25]]
         # loc=[[0.0,0.0,45],[1.0,0.0,135],[1,0.5,180],[0.8,0.8,200],[0.5,0.8,270]]
-        loc=[[0.7,0.3,45],[1.0,0.7,270]]
-        # loc=[[1.3,1.3,0]]
+        # loc=[[0.7,0.3,45],[1.0,0.7,270]]
+        loc=[[1.1,0.8,180]]
         # loc=[[1.25,0.5,90],[2.0,0.8,180],[1.25,1.0,270],[0.5,0.8,0],[1.25,0.8,0]]
         x,y,t=loc[self.POSITION]
         # print(f"To Location {x,y,t}")
@@ -720,7 +675,7 @@ class Robot:
                         X,Y,Theta,c_distance=self.get_location(self.pose)
                         self.pose=[X,Y,Theta]
                         self.control()
-                        time.sleep(0.2)
+                        time.sleep(0.3)
                         
                         self.servo.ChangeDutyCycle(7.5)
                         self.stop()
@@ -740,10 +695,10 @@ class Robot:
                     else:
                         self.control_angle(angle,2)
             elif status==0:
-                self.pwm1.ChangeDutyCycle(self.BASE_DUTYCYCLE_ANGLE)
-                self.pwm4.ChangeDutyCycle(self.BASE_DUTYCYCLE_ANGLE)
-                self.pwm2.ChangeDutyCycle(0.0)
-                self.pwm3.ChangeDutyCycle(0.0)
+                self.pwm2.ChangeDutyCycle(self.BASE_DUTYCYCLE_ANGLE)
+                self.pwm3.ChangeDutyCycle(self.BASE_DUTYCYCLE_ANGLE)
+                self.pwm1.ChangeDutyCycle(0.0)
+                self.pwm4.ChangeDutyCycle(0.0)
                 self.search_counter+=1
                 if self.search_counter>360:
                     self.search_counter=0
@@ -801,7 +756,7 @@ class Robot:
                 distance_array.append(self.distance(self.TRIG_F,self.ECHO_F))
 
             avg_dist=sum(distance_array)/len(distance_array)
-            if self.MOVE_TO_ZONE==1:
+            if self.MOVE_TO_ZONE==1 and self.PICK==0:
                 if avg_dist>0 and avg_dist<35:
                     self.recalibrate()
                     print(avg_dist)
@@ -834,9 +789,9 @@ class Robot:
                 #     'white': ([0,0,203], [151,33,255])
                 #     }
                 colors = {
-                    'RED': ([169, 192, 60], [179,255,255]),
-                    'GREEN': ([22,27,27],[101,226,208]),
-                    'BLUE': ([105,134,63], [166,244,244]),
+                    'RED': ([128, 69, 131], [179,255,255]),
+                    'GREEN': ([43,38,63],[95,255,255]),
+                    'BLUE': ([99,112,119], [125,242,255]),
                     'yellow': ([17,85,131], [38,248,230]),
                     'black': ([100,35,15], [155,255,95]),
                     'white': ([0,0,203], [151,33,255])
