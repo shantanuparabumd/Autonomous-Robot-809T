@@ -1,0 +1,29 @@
+[35m[1mScanning dependencies of target robot_library[0m
+[ 16%] [32mBuilding CXX object CMakeFiles/robot_library.dir/src/gpio.cpp.o[0m
+[ 50%] Built target camera
+[ 66%] [32m[1mLinking CXX static library librobot_library.a[0m
+[ 66%] Built target robot_library
+[35m[1mScanning dependencies of target demo_1[0m
+[ 83%] [32mBuilding CXX object CMakeFiles/demo_1.dir/src/demo_1.cpp.o[0m
+[100%] [32m[1mLinking CXX executable demo_1[0m
+[100%] Built target demo_1
+-- Install configuration: ""
+-- Installing: /home/shant/ros2_ws/install/auto_car/lib/auto_car/demo_1
+-- Set runtime path of "/home/shant/ros2_ws/install/auto_car/lib/auto_car/demo_1" to ""
+-- Installing: /home/shant/ros2_ws/install/auto_car/lib/auto_car/camera
+-- Set runtime path of "/home/shant/ros2_ws/install/auto_car/lib/auto_car/camera" to ""
+-- Installing: /home/shant/ros2_ws/install/auto_car/share/ament_index/resource_index/package_run_dependencies/auto_car
+-- Installing: /home/shant/ros2_ws/install/auto_car/share/ament_index/resource_index/parent_prefix_path/auto_car
+-- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/environment/ament_prefix_path.sh
+-- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/environment/ament_prefix_path.dsv
+-- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/environment/path.sh
+-- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/environment/path.dsv
+-- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/local_setup.bash
+-- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/local_setup.sh
+-- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/local_setup.zsh
+-- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/local_setup.dsv
+-- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/package.dsv
+-- Installing: /home/shant/ros2_ws/install/auto_car/share/ament_index/resource_index/packages/auto_car
+-- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/cmake/auto_carConfig.cmake
+-- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/cmake/auto_carConfig-version.cmake
+-- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/package.xml

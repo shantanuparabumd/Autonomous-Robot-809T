@@ -1,0 +1,3 @@
+[35m[1mScanning dependencies of target robot_library[0m
+[ 16%] [32mBuilding CXX object CMakeFiles/robot_library.dir/src/gpio.cpp.o[0m
+[ 50%] Built target camera

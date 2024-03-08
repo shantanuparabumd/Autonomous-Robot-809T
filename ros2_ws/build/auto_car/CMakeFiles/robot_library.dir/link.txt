@@ -1,0 +1,2 @@
+/usr/bin/ar qc librobot_library.a  CMakeFiles/robot_library.dir/src/gpio.cpp.o
+/usr/bin/ranlib librobot_library.a

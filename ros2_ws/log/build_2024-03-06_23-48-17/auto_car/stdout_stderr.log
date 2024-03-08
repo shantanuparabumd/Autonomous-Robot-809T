@@ -1,0 +1,22 @@
+[ 33%] Built target robot_library
+[35m[1mScanning dependencies of target demo_1[0m
+[ 66%] Built target camera
+[ 83%] [32mBuilding CXX object CMakeFiles/demo_1.dir/src/demo_1.cpp.o[0m
+In file included from [01m[K/home/shant/ros2_ws/src/auto_car/src/demo_1.cpp:17[m[K:
+[01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:[m[K In constructor ‘[01m[KEx1Demo::Ex1Demo(std::string)[m[K’:
+[01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:43:50:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[KGPIO::GPIO()[m[K’
+   43 |   Ex1Demo(std::string node_name) : Node(node_name[01;31m[K)[m[K{
+      |                                                  [01;31m[K^[m[K
+In file included from [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:25[m[K,
+                 from [01m[K/home/shant/ros2_ws/src/auto_car/src/demo_1.cpp:17[m[K:
+[01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/gpio.hpp:60:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[KGPIO::GPIO(int)[m[K’
+   60 |     [01;36m[KGPIO[m[K(int pin);
+      |     [01;36m[K^~~~[m[K
+[01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/gpio.hpp:60:5:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/gpio.hpp:50:7:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kconstexpr GPIO::GPIO(const GPIO&)[m[K’
+   50 | class [01;36m[KGPIO[m[K {
+      |       [01;36m[K^~~~[m[K
+[01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/gpio.hpp:50:7:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+make[2]: *** [CMakeFiles/demo_1.dir/build.make:63: CMakeFiles/demo_1.dir/src/demo_1.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:109: CMakeFiles/demo_1.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

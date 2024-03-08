@@ -1,0 +1,12 @@
+/home/shant/ros2_ws/build/auto_car/CMakeFiles/install/strip.dir
+/home/shant/ros2_ws/build/auto_car/CMakeFiles/install/local.dir
+/home/shant/ros2_ws/build/auto_car/CMakeFiles/install.dir
+/home/shant/ros2_ws/build/auto_car/CMakeFiles/list_install_components.dir
+/home/shant/ros2_ws/build/auto_car/CMakeFiles/rebuild_cache.dir
+/home/shant/ros2_ws/build/auto_car/CMakeFiles/edit_cache.dir
+/home/shant/ros2_ws/build/auto_car/CMakeFiles/test.dir
+/home/shant/ros2_ws/build/auto_car/CMakeFiles/camera.dir
+/home/shant/ros2_ws/build/auto_car/CMakeFiles/demo_1.dir
+/home/shant/ros2_ws/build/auto_car/CMakeFiles/robot_library.dir
+/home/shant/ros2_ws/build/auto_car/CMakeFiles/auto_car_uninstall.dir
+/home/shant/ros2_ws/build/auto_car/CMakeFiles/uninstall.dir

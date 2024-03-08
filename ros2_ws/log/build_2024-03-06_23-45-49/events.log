@@ -1,0 +1,219 @@
+[0.000000] (-) TimerEvent: {}
+[0.001006] (auto_car) JobQueued: {'identifier': 'auto_car', 'dependencies': OrderedDict()}
+[0.001964] (auto_car) JobStarted: {'identifier': 'auto_car'}
+[0.099210] (-) TimerEvent: {}
+[0.200027] (-) TimerEvent: {}
+[0.301353] (-) TimerEvent: {}
+[0.403025] (-) TimerEvent: {}
+[0.504224] (-) TimerEvent: {}
+[0.605199] (-) TimerEvent: {}
+[0.706380] (-) TimerEvent: {}
+[0.807216] (-) TimerEvent: {}
+[0.909480] (-) TimerEvent: {}
+[1.013797] (-) TimerEvent: {}
+[1.115102] (-) TimerEvent: {}
+[1.217210] (-) TimerEvent: {}
+[1.318822] (-) TimerEvent: {}
+[1.420492] (-) TimerEvent: {}
+[1.521633] (-) TimerEvent: {}
+[1.570165] (auto_car) JobProgress: {'identifier': 'auto_car', 'progress': 'cmake'}
+[1.573144] (auto_car) JobProgress: {'identifier': 'auto_car', 'progress': 'build'}
+[1.576136] (auto_car) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/shant/ros2_ws/build/auto_car', '--', '-j4', '-l4'], 'cwd': '/home/shant/ros2_ws/build/auto_car', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'shant'), ('SSH_CLIENT', '192.168.1.18 53800 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/lib/aarch64-linux-gnu:/opt/ros/galactic/lib::/opt/vc/lib'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/shant'), ('OLDPWD', '/home/shant/ros2_ws/install'), ('SSH_TTY', '/dev/pts/0'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLCON_PREFIX_PATH', '/home/shant/ros2_ws/install'), ('ROS_DISTRO', 'galactic'), ('LOGNAME', 'shant'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '8'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/galactic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/vc/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '5'), ('AMENT_PREFIX_PATH', '/home/shant/ros2_ws/install/auto_car:/opt/ros/galactic'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/shant/ros2_ws/build/auto_car'), ('SSH_CONNECTION', '192.168.1.18 53800 192.168.1.159 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/galactic/lib/python3.8/site-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/shant/ros2_ws/install/auto_car:/opt/ros/galactic')]), 'shell': False}
+[1.621936] (-) TimerEvent: {}
+[1.722961] (-) TimerEvent: {}
+[1.820449] (auto_car) StdoutLine: {'line': b'[ 33%] Built target robot_library\n'}
+[1.823191] (-) TimerEvent: {}
+[1.872539] (auto_car) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target demo_1\x1b[0m\n'}
+[1.908582] (auto_car) StdoutLine: {'line': b'[ 66%] Built target camera\n'}
+[1.923295] (-) TimerEvent: {}
+[2.024031] (-) TimerEvent: {}
+[2.048206] (auto_car) StdoutLine: {'line': b'[ 83%] \x1b[32mBuilding CXX object CMakeFiles/demo_1.dir/src/demo_1.cpp.o\x1b[0m\n'}
+[2.124209] (-) TimerEvent: {}
+[2.224942] (-) TimerEvent: {}
+[2.325714] (-) TimerEvent: {}
+[2.426524] (-) TimerEvent: {}
+[2.527371] (-) TimerEvent: {}
+[2.628142] (-) TimerEvent: {}
+[2.728961] (-) TimerEvent: {}
+[2.829846] (-) TimerEvent: {}
+[2.930628] (-) TimerEvent: {}
+[3.031439] (-) TimerEvent: {}
+[3.156878] (-) TimerEvent: {}
+[3.257687] (-) TimerEvent: {}
+[3.358524] (-) TimerEvent: {}
+[3.459387] (-) TimerEvent: {}
+[3.560140] (-) TimerEvent: {}
+[3.660975] (-) TimerEvent: {}
+[3.761855] (-) TimerEvent: {}
+[3.862684] (-) TimerEvent: {}
+[3.963557] (-) TimerEvent: {}
+[4.064313] (-) TimerEvent: {}
+[4.165080] (-) TimerEvent: {}
+[4.265901] (-) TimerEvent: {}
+[4.366681] (-) TimerEvent: {}
+[4.467527] (-) TimerEvent: {}
+[4.568280] (-) TimerEvent: {}
+[4.669058] (-) TimerEvent: {}
+[4.769820] (-) TimerEvent: {}
+[4.870711] (-) TimerEvent: {}
+[4.971510] (-) TimerEvent: {}
+[5.072292] (-) TimerEvent: {}
+[5.173091] (-) TimerEvent: {}
+[5.273928] (-) TimerEvent: {}
+[5.374740] (-) TimerEvent: {}
+[5.475599] (-) TimerEvent: {}
+[5.576425] (-) TimerEvent: {}
+[5.677186] (-) TimerEvent: {}
+[5.778020] (-) TimerEvent: {}
+[5.878802] (-) TimerEvent: {}
+[5.979630] (-) TimerEvent: {}
+[6.080450] (-) TimerEvent: {}
+[6.181225] (-) TimerEvent: {}
+[6.282053] (-) TimerEvent: {}
+[6.382847] (-) TimerEvent: {}
+[6.483702] (-) TimerEvent: {}
+[6.584492] (-) TimerEvent: {}
+[6.685253] (-) TimerEvent: {}
+[6.786020] (-) TimerEvent: {}
+[6.886788] (-) TimerEvent: {}
+[6.987617] (-) TimerEvent: {}
+[7.088381] (-) TimerEvent: {}
+[7.189164] (-) TimerEvent: {}
+[7.289984] (-) TimerEvent: {}
+[7.390742] (-) TimerEvent: {}
+[7.491562] (-) TimerEvent: {}
+[7.592340] (-) TimerEvent: {}
+[7.693149] (-) TimerEvent: {}
+[7.793970] (-) TimerEvent: {}
+[7.894751] (-) TimerEvent: {}
+[7.995639] (-) TimerEvent: {}
+[8.096648] (-) TimerEvent: {}
+[8.197487] (-) TimerEvent: {}
+[8.298291] (-) TimerEvent: {}
+[8.399079] (-) TimerEvent: {}
+[8.499925] (-) TimerEvent: {}
+[8.600702] (-) TimerEvent: {}
+[8.701491] (-) TimerEvent: {}
+[8.802298] (-) TimerEvent: {}
+[8.903087] (-) TimerEvent: {}
+[9.003915] (-) TimerEvent: {}
+[9.104713] (-) TimerEvent: {}
+[9.205551] (-) TimerEvent: {}
+[9.306335] (-) TimerEvent: {}
+[9.407095] (-) TimerEvent: {}
+[9.507897] (-) TimerEvent: {}
+[9.608735] (-) TimerEvent: {}
+[9.709606] (-) TimerEvent: {}
+[9.810424] (-) TimerEvent: {}
+[9.911250] (-) TimerEvent: {}
+[10.012060] (-) TimerEvent: {}
+[10.112903] (-) TimerEvent: {}
+[10.213742] (-) TimerEvent: {}
+[10.311366] (auto_car) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/shant/ros2_ws/src/auto_car/src/demo_1.cpp:17\x1b[m\x1b[K:\n'}
+[10.312334] (auto_car) StderrLine: {'line': b'\x1b[01m\x1b[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:\x1b[m\x1b[K In member function \xe2\x80\x98\x1b[01m\x1b[Kvoid Ex1Demo::publish_number()\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[10.313060] (auto_car) StderrLine: {'line': b'\x1b[01m\x1b[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:110:5:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kpin\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope; did you mean \xe2\x80\x98\x1b[01m\x1b[Ksin\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[10.314007] (-) TimerEvent: {}
+[10.314886] (auto_car) StderrLine: {'line': b'  110 |     \x1b[01;31m\x1b[Kpin\x1b[m\x1b[K.setValue(flag);\n'}
+[10.315760] (auto_car) StderrLine: {'line': b'      |     \x1b[01;31m\x1b[K^~~\x1b[m\x1b[K\n'}
+[10.316415] (auto_car) StderrLine: {'line': b'      |     \x1b[32m\x1b[Ksin\x1b[m\x1b[K\n'}
+[10.317459] (auto_car) StderrLine: {'line': b'\x1b[01m\x1b[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:114:5:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kpin\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope; did you mean \xe2\x80\x98\x1b[01m\x1b[Ksin\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[10.318004] (auto_car) StderrLine: {'line': b'  114 |     \x1b[01;31m\x1b[Kpin\x1b[m\x1b[K.setValue(flag);\n'}
+[10.318442] (auto_car) StderrLine: {'line': b'      |     \x1b[01;31m\x1b[K^~~\x1b[m\x1b[K\n'}
+[10.318859] (auto_car) StderrLine: {'line': b'      |     \x1b[32m\x1b[Ksin\x1b[m\x1b[K\n'}
+[10.414220] (-) TimerEvent: {}
+[10.515054] (-) TimerEvent: {}
+[10.615933] (-) TimerEvent: {}
+[10.716767] (-) TimerEvent: {}
+[10.817591] (-) TimerEvent: {}
+[10.918440] (-) TimerEvent: {}
+[11.019285] (-) TimerEvent: {}
+[11.120094] (-) TimerEvent: {}
+[11.220919] (-) TimerEvent: {}
+[11.321779] (-) TimerEvent: {}
+[11.422644] (-) TimerEvent: {}
+[11.523469] (-) TimerEvent: {}
+[11.624269] (-) TimerEvent: {}
+[11.725096] (-) TimerEvent: {}
+[11.825950] (-) TimerEvent: {}
+[11.926761] (-) TimerEvent: {}
+[12.027554] (-) TimerEvent: {}
+[12.128397] (-) TimerEvent: {}
+[12.229231] (-) TimerEvent: {}
+[12.330039] (-) TimerEvent: {}
+[12.430838] (-) TimerEvent: {}
+[12.531666] (-) TimerEvent: {}
+[12.632447] (-) TimerEvent: {}
+[12.733218] (-) TimerEvent: {}
+[12.834062] (-) TimerEvent: {}
+[12.934865] (-) TimerEvent: {}
+[13.035704] (-) TimerEvent: {}
+[13.146412] (-) TimerEvent: {}
+[13.247233] (-) TimerEvent: {}
+[13.348038] (-) TimerEvent: {}
+[13.448844] (-) TimerEvent: {}
+[13.549667] (-) TimerEvent: {}
+[13.650500] (-) TimerEvent: {}
+[13.751324] (-) TimerEvent: {}
+[13.852143] (-) TimerEvent: {}
+[13.952988] (-) TimerEvent: {}
+[14.053811] (-) TimerEvent: {}
+[14.154591] (-) TimerEvent: {}
+[14.255439] (-) TimerEvent: {}
+[14.356236] (-) TimerEvent: {}
+[14.457058] (-) TimerEvent: {}
+[14.557901] (-) TimerEvent: {}
+[14.658744] (-) TimerEvent: {}
+[14.759583] (-) TimerEvent: {}
+[14.860404] (-) TimerEvent: {}
+[14.961259] (-) TimerEvent: {}
+[15.062078] (-) TimerEvent: {}
+[15.162905] (-) TimerEvent: {}
+[15.263751] (-) TimerEvent: {}
+[15.364553] (-) TimerEvent: {}
+[15.465380] (-) TimerEvent: {}
+[15.566408] (-) TimerEvent: {}
+[15.667266] (-) TimerEvent: {}
+[15.768032] (-) TimerEvent: {}
+[15.868805] (-) TimerEvent: {}
+[15.969595] (-) TimerEvent: {}
+[16.070353] (-) TimerEvent: {}
+[16.171113] (-) TimerEvent: {}
+[16.271925] (-) TimerEvent: {}
+[16.372700] (-) TimerEvent: {}
+[16.473559] (-) TimerEvent: {}
+[16.574440] (-) TimerEvent: {}
+[16.675270] (-) TimerEvent: {}
+[16.776095] (-) TimerEvent: {}
+[16.876895] (-) TimerEvent: {}
+[16.977724] (-) TimerEvent: {}
+[17.078571] (-) TimerEvent: {}
+[17.179657] (-) TimerEvent: {}
+[17.280390] (-) TimerEvent: {}
+[17.381120] (-) TimerEvent: {}
+[17.482011] (-) TimerEvent: {}
+[17.583119] (-) TimerEvent: {}
+[17.683951] (-) TimerEvent: {}
+[17.784810] (-) TimerEvent: {}
+[17.885689] (-) TimerEvent: {}
+[17.986561] (-) TimerEvent: {}
+[18.087439] (-) TimerEvent: {}
+[18.188279] (-) TimerEvent: {}
+[18.223171] (auto_car) StderrLine: {'line': b'make[2]: *** [CMakeFiles/demo_1.dir/build.make:63: CMakeFiles/demo_1.dir/src/demo_1.cpp.o] Error 1\n'}
+[18.224048] (auto_car) StderrLine: {'line': b'make[1]: *** [CMakeFiles/Makefile2:109: CMakeFiles/demo_1.dir/all] Error 2\n'}
+[18.224758] (auto_car) StderrLine: {'line': b'make: *** [Makefile:141: all] Error 2\n'}
+[18.230473] (auto_car) CommandEnded: {'returncode': 2}
+[18.288527] (-) TimerEvent: {}
+[18.389523] (-) TimerEvent: {}
+[18.491664] (-) TimerEvent: {}
+[18.593379] (-) TimerEvent: {}
+[18.695315] (-) TimerEvent: {}
+[18.796218] (-) TimerEvent: {}
+[18.899005] (-) TimerEvent: {}
+[19.000712] (-) TimerEvent: {}
+[19.102039] (-) TimerEvent: {}
+[19.202816] (-) TimerEvent: {}
+[19.304888] (-) TimerEvent: {}
+[19.406568] (-) TimerEvent: {}
+[19.508056] (-) TimerEvent: {}
+[19.542659] (auto_car) JobEnded: {'identifier': 'auto_car', 'rc': 2}
+[19.547210] (-) EventReactorShutdown: {}

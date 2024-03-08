@@ -1,0 +1,4 @@
+Invoking command in '/home/shant/ros2_ws/build/auto_car': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/shant/ros2_ws/build/auto_car -- -j4 -l4
+Invoked command in '/home/shant/ros2_ws/build/auto_car' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/shant/ros2_ws/build/auto_car -- -j4 -l4
+Invoking command in '/home/shant/ros2_ws/build/auto_car': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --install /home/shant/ros2_ws/build/auto_car
+Invoked command in '/home/shant/ros2_ws/build/auto_car' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --install /home/shant/ros2_ws/build/auto_car

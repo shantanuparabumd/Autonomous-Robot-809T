@@ -1,0 +1,4 @@
+[ 33%] Built target robot_library
+[35m[1mScanning dependencies of target demo_1[0m
+[ 66%] Built target camera
+[ 83%] [32mBuilding CXX object CMakeFiles/demo_1.dir/src/demo_1.cpp.o[0m

@@ -1,0 +1,19 @@
+[1.577s] Invoking command in '/home/shant/ros2_ws/build/auto_car': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/shant/ros2_ws/build/auto_car -- -j4 -l4
+[1.819s] [ 33%] Built target robot_library
+[1.870s] [35m[1mScanning dependencies of target demo_1[0m
+[1.907s] [ 66%] Built target camera
+[2.046s] [ 83%] [32mBuilding CXX object CMakeFiles/demo_1.dir/src/demo_1.cpp.o[0m
+[10.310s] In file included from [01m[K/home/shant/ros2_ws/src/auto_car/src/demo_1.cpp:17[m[K:
+[10.310s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:[m[K In member function ‘[01m[Kvoid Ex1Demo::publish_number()[m[K’:
+[10.311s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:110:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kpin[m[K’ was not declared in this scope; did you mean ‘[01m[Ksin[m[K’?
+[10.313s]   110 |     [01;31m[Kpin[m[K.setValue(flag);
+[10.314s]       |     [01;31m[K^~~[m[K
+[10.315s]       |     [32m[Ksin[m[K
+[10.315s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:114:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kpin[m[K’ was not declared in this scope; did you mean ‘[01m[Ksin[m[K’?
+[10.316s]   114 |     [01;31m[Kpin[m[K.setValue(flag);
+[10.316s]       |     [01;31m[K^~~[m[K
+[10.317s]       |     [32m[Ksin[m[K
+[18.221s] make[2]: *** [CMakeFiles/demo_1.dir/build.make:63: CMakeFiles/demo_1.dir/src/demo_1.cpp.o] Error 1
+[18.222s] make[1]: *** [CMakeFiles/Makefile2:109: CMakeFiles/demo_1.dir/all] Error 2
+[18.223s] make: *** [Makefile:141: all] Error 2
+[18.229s] Invoked command in '/home/shant/ros2_ws/build/auto_car' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/shant/ros2_ws/build/auto_car -- -j4 -l4

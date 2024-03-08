@@ -1,0 +1,38 @@
+[1.565s] Invoking command in '/home/shant/ros2_ws/build/auto_car': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/shant/ros2_ws/build/auto_car -- -j4 -l4
+[1.803s] [ 33%] Built target robot_library
+[1.855s] [35m[1mScanning dependencies of target demo_1[0m
+[1.891s] [ 66%] Built target camera
+[2.024s] [ 83%] [32mBuilding CXX object CMakeFiles/demo_1.dir/src/demo_1.cpp.o[0m
+[10.132s] In file included from [01m[K/home/shant/ros2_ws/src/auto_car/src/demo_1.cpp:17[m[K:
+[10.133s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:[m[K In constructor ‘[01m[KEx1Demo::Ex1Demo(std::string)[m[K’:
+[10.134s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:43:50:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[KGPIO::GPIO()[m[K’
+[10.134s]    43 |   Ex1Demo(std::string node_name) : Node(node_name[01;31m[K)[m[K{
+[10.135s]       |                                                  [01;31m[K^[m[K
+[10.136s] In file included from [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:25[m[K,
+[10.136s]                  from [01m[K/home/shant/ros2_ws/src/auto_car/src/demo_1.cpp:17[m[K:
+[10.137s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/gpio.hpp:60:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[KGPIO::GPIO(int)[m[K’
+[10.137s]    60 |     [01;36m[KGPIO[m[K(int pin);
+[10.138s]       |     [01;36m[K^~~~[m[K
+[10.138s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/gpio.hpp:60:5:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[10.139s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/gpio.hpp:50:7:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kconstexpr GPIO::GPIO(const GPIO&)[m[K’
+[10.139s]    50 | class [01;36m[KGPIO[m[K {
+[10.139s]       |       [01;36m[K^~~~[m[K
+[10.140s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/gpio.hpp:50:7:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[10.262s] In file included from [01m[K/home/shant/ros2_ws/src/auto_car/src/demo_1.cpp:17[m[K:
+[10.263s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:60:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kpin[m[K’ was not declared in this scope; did you mean ‘[01m[Kpin_[m[K’?
+[10.264s]    60 |     [01;31m[Kpin[m[K.setMode("out");
+[10.264s]       |     [01;31m[K^~~[m[K
+[10.264s]       |     [32m[Kpin_[m[K
+[10.274s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:[m[K In member function ‘[01m[Kvoid Ex1Demo::publish_number()[m[K’:
+[10.275s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:112:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kpin[m[K’ was not declared in this scope; did you mean ‘[01m[Kpin_[m[K’?
+[10.276s]   112 |     [01;31m[Kpin[m[K.setValue(flag);
+[10.277s]       |     [01;31m[K^~~[m[K
+[10.278s]       |     [32m[Kpin_[m[K
+[10.280s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:116:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kpin[m[K’ was not declared in this scope; did you mean ‘[01m[Kpin_[m[K’?
+[10.280s]   116 |     [01;31m[Kpin[m[K.setValue(flag);
+[10.281s]       |     [01;31m[K^~~[m[K
+[10.281s]       |     [32m[Kpin_[m[K
+[18.573s] make[2]: *** [CMakeFiles/demo_1.dir/build.make:63: CMakeFiles/demo_1.dir/src/demo_1.cpp.o] Error 1
+[18.574s] make[1]: *** [CMakeFiles/Makefile2:109: CMakeFiles/demo_1.dir/all] Error 2
+[18.574s] make: *** [Makefile:141: all] Error 2
+[18.581s] Invoked command in '/home/shant/ros2_ws/build/auto_car' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/shant/ros2_ws/build/auto_car -- -j4 -l4

@@ -1,0 +1,33 @@
+[1.602s] Invoking command in '/home/shant/ros2_ws/build/auto_car': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/shant/ros2_ws/build/auto_car -- -j4 -l4
+[1.802s] [35m[1mScanning dependencies of target robot_library[0m
+[1.854s] [ 16%] [32mBuilding CXX object CMakeFiles/robot_library.dir/src/gpio.cpp.o[0m
+[1.929s] [ 50%] Built target camera
+[3.064s] [ 66%] [32m[1mLinking CXX static library librobot_library.a[0m
+[3.202s] [ 66%] Built target robot_library
+[3.255s] [35m[1mScanning dependencies of target demo_1[0m
+[3.423s] [ 83%] [32mBuilding CXX object CMakeFiles/demo_1.dir/src/demo_1.cpp.o[0m
+[32.847s] [100%] [32m[1mLinking CXX executable demo_1[0m
+[34.272s] [100%] Built target demo_1
+[34.315s] Invoked command in '/home/shant/ros2_ws/build/auto_car' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/shant/ros2_ws/build/auto_car -- -j4 -l4
+[34.518s] Invoking command in '/home/shant/ros2_ws/build/auto_car': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --install /home/shant/ros2_ws/build/auto_car
+[34.556s] -- Install configuration: ""
+[34.557s] -- Installing: /home/shant/ros2_ws/install/auto_car/lib/auto_car/demo_1
+[34.576s] -- Set runtime path of "/home/shant/ros2_ws/install/auto_car/lib/auto_car/demo_1" to ""
+[34.576s] -- Installing: /home/shant/ros2_ws/install/auto_car/lib/auto_car/camera
+[34.584s] -- Set runtime path of "/home/shant/ros2_ws/install/auto_car/lib/auto_car/camera" to ""
+[34.585s] -- Installing: /home/shant/ros2_ws/install/auto_car/share/ament_index/resource_index/package_run_dependencies/auto_car
+[34.587s] -- Installing: /home/shant/ros2_ws/install/auto_car/share/ament_index/resource_index/parent_prefix_path/auto_car
+[34.588s] -- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/environment/ament_prefix_path.sh
+[34.589s] -- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/environment/ament_prefix_path.dsv
+[34.590s] -- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/environment/path.sh
+[34.591s] -- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/environment/path.dsv
+[34.592s] -- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/local_setup.bash
+[34.593s] -- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/local_setup.sh
+[34.594s] -- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/local_setup.zsh
+[34.595s] -- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/local_setup.dsv
+[34.597s] -- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/package.dsv
+[34.598s] -- Installing: /home/shant/ros2_ws/install/auto_car/share/ament_index/resource_index/packages/auto_car
+[34.599s] -- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/cmake/auto_carConfig.cmake
+[34.600s] -- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/cmake/auto_carConfig-version.cmake
+[34.601s] -- Installing: /home/shant/ros2_ws/install/auto_car/share/auto_car/package.xml
+[34.607s] Invoked command in '/home/shant/ros2_ws/build/auto_car' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --install /home/shant/ros2_ws/build/auto_car

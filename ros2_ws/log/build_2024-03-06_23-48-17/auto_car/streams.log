@@ -1,0 +1,24 @@
+[1.560s] Invoking command in '/home/shant/ros2_ws/build/auto_car': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/shant/ros2_ws/build/auto_car -- -j4 -l4
+[1.800s] [ 33%] Built target robot_library
+[1.852s] [35m[1mScanning dependencies of target demo_1[0m
+[1.889s] [ 66%] Built target camera
+[2.022s] [ 83%] [32mBuilding CXX object CMakeFiles/demo_1.dir/src/demo_1.cpp.o[0m
+[10.140s] In file included from [01m[K/home/shant/ros2_ws/src/auto_car/src/demo_1.cpp:17[m[K:
+[10.140s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:[m[K In constructor ‘[01m[KEx1Demo::Ex1Demo(std::string)[m[K’:
+[10.141s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:43:50:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[KGPIO::GPIO()[m[K’
+[10.141s]    43 |   Ex1Demo(std::string node_name) : Node(node_name[01;31m[K)[m[K{
+[10.142s]       |                                                  [01;31m[K^[m[K
+[10.142s] In file included from [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/demo_1_interface.hpp:25[m[K,
+[10.143s]                  from [01m[K/home/shant/ros2_ws/src/auto_car/src/demo_1.cpp:17[m[K:
+[10.143s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/gpio.hpp:60:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[KGPIO::GPIO(int)[m[K’
+[10.144s]    60 |     [01;36m[KGPIO[m[K(int pin);
+[10.144s]       |     [01;36m[K^~~~[m[K
+[10.145s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/gpio.hpp:60:5:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[10.145s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/gpio.hpp:50:7:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kconstexpr GPIO::GPIO(const GPIO&)[m[K’
+[10.146s]    50 | class [01;36m[KGPIO[m[K {
+[10.146s]       |       [01;36m[K^~~~[m[K
+[10.147s] [01m[K/home/shant/ros2_ws/src/auto_car/include/auto_car/gpio.hpp:50:7:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[18.171s] make[2]: *** [CMakeFiles/demo_1.dir/build.make:63: CMakeFiles/demo_1.dir/src/demo_1.cpp.o] Error 1
+[18.172s] make[1]: *** [CMakeFiles/Makefile2:109: CMakeFiles/demo_1.dir/all] Error 2
+[18.174s] make: *** [Makefile:141: all] Error 2
+[18.179s] Invoked command in '/home/shant/ros2_ws/build/auto_car' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/shant/ros2_ws/build/auto_car -- -j4 -l4

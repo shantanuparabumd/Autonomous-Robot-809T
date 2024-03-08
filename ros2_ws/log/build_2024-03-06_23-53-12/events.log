@@ -1,0 +1,60 @@
+[0.000000] (-) TimerEvent: {}
+[0.001017] (auto_car) JobQueued: {'identifier': 'auto_car', 'dependencies': OrderedDict()}
+[0.001958] (auto_car) JobStarted: {'identifier': 'auto_car'}
+[0.100007] (-) TimerEvent: {}
+[0.201028] (-) TimerEvent: {}
+[0.302438] (-) TimerEvent: {}
+[0.403808] (-) TimerEvent: {}
+[0.505644] (-) TimerEvent: {}
+[0.606417] (-) TimerEvent: {}
+[0.708537] (-) TimerEvent: {}
+[0.809998] (-) TimerEvent: {}
+[0.911504] (-) TimerEvent: {}
+[1.012911] (-) TimerEvent: {}
+[1.113695] (-) TimerEvent: {}
+[1.215322] (-) TimerEvent: {}
+[1.316738] (-) TimerEvent: {}
+[1.418299] (-) TimerEvent: {}
+[1.519821] (-) TimerEvent: {}
+[1.555204] (auto_car) JobProgress: {'identifier': 'auto_car', 'progress': 'cmake'}
+[1.558855] (auto_car) JobProgress: {'identifier': 'auto_car', 'progress': 'build'}
+[1.561956] (auto_car) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/shant/ros2_ws/build/auto_car', '--', '-j4', '-l4'], 'cwd': '/home/shant/ros2_ws/build/auto_car', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'shant'), ('SSH_CLIENT', '192.168.1.18 53800 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/lib/aarch64-linux-gnu:/opt/ros/galactic/lib::/opt/vc/lib'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/shant'), ('OLDPWD', '/home/shant/ros2_ws/install'), ('SSH_TTY', '/dev/pts/0'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLCON_PREFIX_PATH', '/home/shant/ros2_ws/install'), ('ROS_DISTRO', 'galactic'), ('LOGNAME', 'shant'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '8'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/galactic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/vc/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '5'), ('AMENT_PREFIX_PATH', '/home/shant/ros2_ws/install/auto_car:/opt/ros/galactic'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/shant/ros2_ws/build/auto_car'), ('SSH_CONNECTION', '192.168.1.18 53800 192.168.1.159 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/galactic/lib/python3.8/site-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/shant/ros2_ws/install/auto_car:/opt/ros/galactic')]), 'shell': False}
+[1.620121] (-) TimerEvent: {}
+[1.721085] (-) TimerEvent: {}
+[1.759122] (auto_car) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target robot_library\x1b[0m\n'}
+[1.811268] (auto_car) StdoutLine: {'line': b'[ 16%] \x1b[32mBuilding CXX object CMakeFiles/robot_library.dir/src/gpio.cpp.o\x1b[0m\n'}
+[1.821254] (-) TimerEvent: {}
+[1.887018] (auto_car) StdoutLine: {'line': b'[ 50%] Built target camera\n'}
+[1.921443] (-) TimerEvent: {}
+[2.022302] (-) TimerEvent: {}
+[2.123106] (-) TimerEvent: {}
+[2.223922] (-) TimerEvent: {}
+[2.324734] (-) TimerEvent: {}
+[2.425509] (-) TimerEvent: {}
+[2.526379] (-) TimerEvent: {}
+[2.627225] (-) TimerEvent: {}
+[2.728101] (-) TimerEvent: {}
+[2.729437] (auto_car) StderrLine: {'line': b'\x1b[01m\x1b[K/home/shant/ros2_ws/src/auto_car/src/gpio.cpp:\x1b[m\x1b[K In constructor \xe2\x80\x98\x1b[01m\x1b[KGPIO::GPIO()\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[2.730250] (auto_car) StderrLine: {'line': b'\x1b[01m\x1b[K/home/shant/ros2_ws/src/auto_car/src/gpio.cpp:16:36:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected primary-expression before \xe2\x80\x98\x1b[01m\x1b[K<\x1b[m\x1b[K\xe2\x80\x99 token\n'}
+[2.730777] (auto_car) StderrLine: {'line': b'   16 |     std::cout<<"Created a object"<<\x1b[01;31m\x1b[K<\x1b[m\x1b[Kstd::endl;\n'}
+[2.731238] (auto_car) StderrLine: {'line': b'      |                                    \x1b[01;31m\x1b[K^\x1b[m\x1b[K\n'}
+[2.828285] (-) TimerEvent: {}
+[2.869072] (auto_car) StderrLine: {'line': b'make[2]: *** [CMakeFiles/robot_library.dir/build.make:63: CMakeFiles/robot_library.dir/src/gpio.cpp.o] Error 1\n'}
+[2.869871] (auto_car) StderrLine: {'line': b'make[1]: *** [CMakeFiles/Makefile2:136: CMakeFiles/robot_library.dir/all] Error 2\n'}
+[2.870709] (auto_car) StderrLine: {'line': b'make: *** [Makefile:141: all] Error 2\n'}
+[2.876709] (auto_car) CommandEnded: {'returncode': 2}
+[2.928569] (-) TimerEvent: {}
+[3.029558] (-) TimerEvent: {}
+[3.130315] (-) TimerEvent: {}
+[3.231212] (-) TimerEvent: {}
+[3.333750] (-) TimerEvent: {}
+[3.434532] (-) TimerEvent: {}
+[3.536426] (-) TimerEvent: {}
+[3.637994] (-) TimerEvent: {}
+[3.739773] (-) TimerEvent: {}
+[3.840601] (-) TimerEvent: {}
+[3.942318] (-) TimerEvent: {}
+[4.043441] (-) TimerEvent: {}
+[4.145270] (-) TimerEvent: {}
+[4.169260] (auto_car) JobEnded: {'identifier': 'auto_car', 'rc': 2}
+[4.181744] (-) EventReactorShutdown: {}

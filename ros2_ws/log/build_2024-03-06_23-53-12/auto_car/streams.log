@@ -1,0 +1,12 @@
+[1.564s] Invoking command in '/home/shant/ros2_ws/build/auto_car': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/shant/ros2_ws/build/auto_car -- -j4 -l4
+[1.758s] [35m[1mScanning dependencies of target robot_library[0m
+[1.810s] [ 16%] [32mBuilding CXX object CMakeFiles/robot_library.dir/src/gpio.cpp.o[0m
+[1.886s] [ 50%] Built target camera
+[2.728s] [01m[K/home/shant/ros2_ws/src/auto_car/src/gpio.cpp:[m[K In constructor ‘[01m[KGPIO::GPIO()[m[K’:
+[2.729s] [01m[K/home/shant/ros2_ws/src/auto_car/src/gpio.cpp:16:36:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K<[m[K’ token
+[2.729s]    16 |     std::cout<<"Created a object"<<[01;31m[K<[m[Kstd::endl;
+[2.730s]       |                                    [01;31m[K^[m[K
+[2.868s] make[2]: *** [CMakeFiles/robot_library.dir/build.make:63: CMakeFiles/robot_library.dir/src/gpio.cpp.o] Error 1
+[2.868s] make[1]: *** [CMakeFiles/Makefile2:136: CMakeFiles/robot_library.dir/all] Error 2
+[2.869s] make: *** [Makefile:141: all] Error 2
+[2.876s] Invoked command in '/home/shant/ros2_ws/build/auto_car' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/shant/ros2_ws/build/auto_car -- -j4 -l4

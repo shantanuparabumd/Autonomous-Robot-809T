@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/shant/ros2_ws/src/auto_car/include/auto_car/gpio.hpp
+iostream
+-
+fstream
+-
+unistd.h
+-
+
+/home/shant/ros2_ws/src/auto_car/src/gpio.cpp
+auto_car/gpio.hpp
+/home/shant/ros2_ws/src/auto_car/src/auto_car/gpio.hpp
+

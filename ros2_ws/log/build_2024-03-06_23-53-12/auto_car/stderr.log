@@ -1,0 +1,7 @@
+[01m[K/home/shant/ros2_ws/src/auto_car/src/gpio.cpp:[m[K In constructor ‘[01m[KGPIO::GPIO()[m[K’:
+[01m[K/home/shant/ros2_ws/src/auto_car/src/gpio.cpp:16:36:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K<[m[K’ token
+   16 |     std::cout<<"Created a object"<<[01;31m[K<[m[Kstd::endl;
+      |                                    [01;31m[K^[m[K
+make[2]: *** [CMakeFiles/robot_library.dir/build.make:63: CMakeFiles/robot_library.dir/src/gpio.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:136: CMakeFiles/robot_library.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

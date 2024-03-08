@@ -1,0 +1,17 @@
+/home/shant/ros2_ws/install/auto_car/lib/auto_car/demo_1
+/home/shant/ros2_ws/install/auto_car/lib/auto_car/camera
+/home/shant/ros2_ws/install/auto_car/share/ament_index/resource_index/package_run_dependencies/auto_car
+/home/shant/ros2_ws/install/auto_car/share/ament_index/resource_index/parent_prefix_path/auto_car
+/home/shant/ros2_ws/install/auto_car/share/auto_car/environment/ament_prefix_path.sh
+/home/shant/ros2_ws/install/auto_car/share/auto_car/environment/ament_prefix_path.dsv
+/home/shant/ros2_ws/install/auto_car/share/auto_car/environment/path.sh
+/home/shant/ros2_ws/install/auto_car/share/auto_car/environment/path.dsv
+/home/shant/ros2_ws/install/auto_car/share/auto_car/local_setup.bash
+/home/shant/ros2_ws/install/auto_car/share/auto_car/local_setup.sh
+/home/shant/ros2_ws/install/auto_car/share/auto_car/local_setup.zsh
+/home/shant/ros2_ws/install/auto_car/share/auto_car/local_setup.dsv
+/home/shant/ros2_ws/install/auto_car/share/auto_car/package.dsv
+/home/shant/ros2_ws/install/auto_car/share/ament_index/resource_index/packages/auto_car
+/home/shant/ros2_ws/install/auto_car/share/auto_car/cmake/auto_carConfig.cmake
+/home/shant/ros2_ws/install/auto_car/share/auto_car/cmake/auto_carConfig-version.cmake
+/home/shant/ros2_ws/install/auto_car/share/auto_car/package.xml
